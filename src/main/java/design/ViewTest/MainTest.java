@@ -24,7 +24,7 @@ public class MainTest extends Application {
         primaryStage.setHeight(800);
         primaryStage.setWidth(1000);
         primaryStage.show();
-
+        System.out.println("git test2");
     }
 
     public static void main(String[] args) {
