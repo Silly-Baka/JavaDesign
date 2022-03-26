@@ -26,6 +26,7 @@ public class MainTest extends Application {
         primaryStage.show();
         System.out.println("git test2");
         System.out.println("git test3");
+        System.out.println("push commit");
     }
 
     public static void main(String[] args) {
