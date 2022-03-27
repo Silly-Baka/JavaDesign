@@ -27,6 +27,7 @@ public class MainTest extends Application {
         System.out.println("git test2");
         System.out.println("git test3");
         System.out.println("push commit");
+        System.out.println("pull test");
     }
 
     public static void main(String[] args) {
