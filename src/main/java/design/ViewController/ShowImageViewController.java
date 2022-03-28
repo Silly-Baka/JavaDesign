@@ -1,6 +1,7 @@
 package design.ViewController;
 
 import design.Controller.ShowImageController;
+import javafx.animation.TranslateTransition;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
@@ -42,9 +43,9 @@ public class ShowImageViewController {
         imageShowStage = new Stage();
         imageShowStage.setWidth(1200);
         imageShowStage.setHeight(600);
-
         imageBox = new HBox();
         imageBox.setAlignment(Pos.CENTER);
+        imageBox.setStyle("-fx-background-color: yellow");
     }
     public void initialize(){
         left_button.setImage(new Image("file:JavaDesign/src/main/resources/img/left.jpg"));
@@ -57,6 +58,7 @@ public class ShowImageViewController {
 //        imagePane.setPrefHeight(imageShowStage.getHeight()-100);
 //        imagePane.setPrefWidth(imageShowStage.getWidth()-left_button.prefWidth(-1)*2);
         imagePane.getChildren().add(imageBox);
+        imagePane.setStyle("-fx-background-color: green");
 
         right_button.setOnMouseClicked(event -> {
             showImageController.setFileIndex(showImageController.getFileIndex()+1);
