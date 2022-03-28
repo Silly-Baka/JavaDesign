@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="design.ViewController.ShowImageViewController"
+            prefHeight="600.0" prefWidth="1200.0"
+            fx:id="root">
+    <ImageView fx:id="left_button" preserveRatio="true">
+<!--        <Image url="@./img/right.jpg"/>-->
+        <fitHeight>100</fitHeight>
+        <fitWidth>100</fitWidth>
+    </ImageView>
+    <ImageView fx:id="right_button" preserveRatio="true">
+<!--        <Image url="@./img/left.jpg"/>-->
+        <fitHeight>100</fitHeight>
+        <fitWidth>100</fitWidth>
+    </ImageView>
+
+    <GridPane fx:id="imagePane" alignment="CENTER" prefWidth="1000" prefHeight="500">
+<!--        <HBox fx:id="imageBox" alignment="CENTER">-->
+
+<!--        </HBox>-->
+    </GridPane>
+
+</AnchorPane>

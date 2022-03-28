@@ -1,4 +1,4 @@
-package design.ViewTest;
+package design.ViewController;
 
 import javafx.application.Application;
 import javafx.geometry.Pos;

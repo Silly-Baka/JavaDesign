@@ -10,7 +10,7 @@
 <?import javafx.scene.text.Text?>
 <HBox xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml"
-      fx:controller="design.Controller.ImageController"
+      fx:controller="design.Controller.ImagePreviewController"
       fx:id="imageViewsBox"
       prefHeight="500"
       prefWidth="500">

@@ -3,6 +3,7 @@ module JavaDesign {
     requires javafx.fxml;
 
     opens design.Controller to javafx.fxml;
-    exports design.ViewTest;
+    exports design.ViewController;
     exports design.Controller;
+    opens design.ViewController to javafx.fxml;
 }

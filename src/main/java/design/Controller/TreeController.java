@@ -21,14 +21,12 @@ import java.io.IOException;
 public class TreeController {
     private static final Image image = new Image("file:JavaDesign/src/main/resources/img/directory.jpg");
 
-    private TreeView<File> treeView;
-
     private MenuController menuController;
 
+    private TreeItem<File> rootNode;
+
     public TreeController(){
-        TreeItem<File> rootNode = createTreeNode(new File("C:\\Program Files (x86)"));
-        treeView = new TreeView<>(rootNode);
-        treeView.setPrefSize(250,600);
+          rootNode = createTreeNode(new File("C:\\Program Files (x86)"));
     }
     public TreeController(MenuController menuController){
         this();
@@ -79,7 +77,7 @@ public class TreeController {
         return childrenNodes;
     }
 
-    public TreeView<File> getTreeView() {
-        return treeView;
+    public TreeItem<File> getRootNode() {
+        return rootNode;
     }
 }

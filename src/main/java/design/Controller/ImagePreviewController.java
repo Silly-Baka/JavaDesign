@@ -4,10 +4,6 @@ import design.Utils.StringUtils;
 import design.pojo.ImageLabel;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.EventTarget;
-import javafx.geometry.Orientation;
-import javafx.scene.Group;
-import javafx.scene.Node;
 import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.OverrunStyle;
 import javafx.scene.image.Image;
@@ -20,25 +16,22 @@ import java.io.File;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 /**
  * User: 86176
  * Date: 2022/3/17
  * Time: 23:30
- * Description: 负责图片层的信息维护以及创建
+ * Description: 负责图片层的信息维护
  */
-public class ImageController {
+public class ImagePreviewController {
 
     private ObservableList<ImageLabel> imageLabels;
-    // 用于展示图片的组件
-    private FlowPane imageLabelsPane;
 
     private String oldPath;
 
     private MenuController menuController;
 
-    private ImageShowController imageShowController;
+    private ShowImageController showImageController;
 
     private Integer imageCount;
 
@@ -46,24 +39,24 @@ public class ImageController {
 
     private ArrayList<File> presentFileList;
 
-    public ImageController(){
-        /// 逻辑还需修改
-        imageLabelsPane = new FlowPane(Orientation.HORIZONTAL);
+
+    public ImagePreviewController(){
         oldPath = "";
         imageLabels = FXCollections.observableArrayList();
     }
-    public ImageController(MenuController menuController,ImageShowController imageShowController){
+    public ImagePreviewController(MenuController menuController, ShowImageController showImageController){
         this();
         this.menuController = menuController;
-        this.imageShowController = imageShowController;
+        this.showImageController = showImageController;
     }
     /**
      * 读取选中目录下的所有图片文件 并存放在数组中  同时获取图片数量和总大小
      * @param directoryFile 从TreeController中传入 选中目录的文件
      */
-    public void createImageViews(File directoryFile){
+    public void createImageViews(File directoryFile,FlowPane imageLabelsPane){
         // 清空图片列表
         imageLabels.clear();
+        imageLabelsPane.getChildren().clear();
         imageCount = 0;
         long size = 0;
         // 排除目录相同的情况 和 文件为空的情况
@@ -86,15 +79,8 @@ public class ImageController {
         // 将图片总大小格式化为 MB
         imageTotalSize = BigDecimal.valueOf(size).divide(BigDecimal.valueOf(1024*1024),4,RoundingMode.HALF_EVEN);
 
-        ///  逻辑还需修改
-        imageLabelsPane = new FlowPane(Orientation.HORIZONTAL);
         imageLabelsPane.getChildren().addAll(imageLabels);
     }
-
-    public FlowPane getImageViewsPane() {
-        return imageLabelsPane;
-    }
-
     /**
      * 创建一个装载图片的标签
      * @param file 图片文件
@@ -127,7 +113,7 @@ public class ImageController {
                 System.out.println("右键");
             }
             if(event.getClickCount()==2){
-                imageShowController.createStage(presentFileList,imageLabel.getImageFileProperty());
+                showImageController.createStage(presentFileList,imageLabel.getImageFileProperty());
             }
         });
         imageLabel.setOnMouseExited(event -> {

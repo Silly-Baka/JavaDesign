@@ -1,4 +1,4 @@
-package design.ViewTest;
+package design.ViewController;
 
 import javafx.animation.TranslateTransition;
 import javafx.application.Application;

@@ -10,33 +10,23 @@ import javafx.scene.control.Label;
  */
 public class TipsController {
 
-    private ImageController imageController;
-
-    private Label tipsLabel;
+    private ImagePreviewController imageController;
 
     public TipsController(){
 
     }
-    public TipsController(ImageController imageController){
+    public TipsController(ImagePreviewController imageController){
         this.imageController = imageController;
     }
 
-    public void createTipsLabel(){
+    public void createTipsLabel(Label tipsLabel){
         int imageCount = imageController.getImageCount();
         double imageTotalSize = imageController.getImageTotalSize().doubleValue();
         ///
         int selectedCount = 0;
 
         String text = "    "+imageCount+"张图片("+imageTotalSize+"MB)---选中"+selectedCount+"张照片";
-        tipsLabel = new Label(text);
+        tipsLabel.setText(text);
         tipsLabel.setStyle("-fx-background-color: pink");
-    }
-
-    public Label getTipsLabel() {
-        return tipsLabel;
-    }
-
-    public void setTipsLabel(Label tipsLabel) {
-        this.tipsLabel = tipsLabel;
     }
 }
