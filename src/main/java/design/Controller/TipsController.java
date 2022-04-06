@@ -12,6 +12,18 @@ public class TipsController {
 
     private ImagePreviewController imageController;
 
+    private Label tipsLabel;
+
+    public void setImageController(ImagePreviewController imageController) {
+        this.imageController = imageController;
+    }
+
+    private int selectedCount = 0;
+
+    int imageCount;
+
+    double imageTotalSize;
+
     public TipsController(){
 
     }
@@ -20,13 +32,19 @@ public class TipsController {
     }
 
     public void createTipsLabel(Label tipsLabel){
-        int imageCount = imageController.getImageCount();
-        double imageTotalSize = imageController.getImageTotalSize().doubleValue();
+        this.tipsLabel = tipsLabel;
+        this.imageCount = imageController.getImageCount();
+        this.imageTotalSize = imageController.getImageTotalSize().doubleValue();
         ///
-        int selectedCount = 0;
 
         String text = "    "+imageCount+"张图片("+imageTotalSize+"MB)---选中"+selectedCount+"张照片";
         tipsLabel.setText(text);
         tipsLabel.setStyle("-fx-background-color: pink");
+    }
+
+    public void setSelectedCount(int selectedCount) {
+        this.selectedCount = selectedCount;
+        String text = "    "+imageCount+"张图片("+imageTotalSize+"MB)---选中"+this.selectedCount+"张照片";
+        tipsLabel.setText(text);
     }
 }

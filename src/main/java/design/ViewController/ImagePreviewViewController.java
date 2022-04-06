@@ -19,6 +19,7 @@ import java.io.File;
  * Description:
  */
 public class ImagePreviewViewController {
+    private ImagePreviewViewController imagePreviewViewController = this;
     private TreeController treeController;
     private ImagePreviewController imageController;
     private TipsController tipsController;
@@ -37,11 +38,12 @@ public class ImagePreviewViewController {
 
 
     public ImagePreviewViewController(){
-        menuController = new MenuController();
+        menuController = new MenuController(imageLabelsPane,imagePreviewViewController);
         treeController = new TreeController(menuController);
         showImageController = new ShowImageController();
-        imageController = new ImagePreviewController(menuController, showImageController);
-        tipsController = new TipsController(imageController);
+        tipsController = new TipsController();
+        imageController = new ImagePreviewController(menuController, showImageController, tipsController);
+        tipsController.setImageController(imageController);
     }
     public void initialize(){
 
@@ -69,5 +71,9 @@ public class ImagePreviewViewController {
             }
         });
 
+    }
+
+    public FlowPane getImageLabelsPane() {
+        return imageLabelsPane;
     }
 }

@@ -26,7 +26,7 @@ public class TreeController {
     private TreeItem<File> rootNode;
 
     public TreeController(){
-          rootNode = createTreeNode(new File("C:\\Program Files (x86)"));
+          rootNode = createTreeNode(new File("G:\\Program Files (x86)"));
     }
     public TreeController(MenuController menuController){
         this();
