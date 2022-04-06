@@ -25,6 +25,12 @@ import java.util.ArrayList;
  */
 public class ImagePreviewController {
 
+    private ImagePreviewController imagePreviewController = this;
+
+    private FlowPane imageLabelsPane;
+
+    private TipsController tipsController;
+
     private ObservableList<ImageLabel> imageLabels;
 
     private String oldPath;
@@ -44,21 +50,24 @@ public class ImagePreviewController {
         oldPath = "";
         imageLabels = FXCollections.observableArrayList();
     }
-    public ImagePreviewController(MenuController menuController, ShowImageController showImageController){
+    public ImagePreviewController(MenuController menuController, ShowImageController showImageController, TipsController tipsController){
         this();
         this.menuController = menuController;
         this.showImageController = showImageController;
+        this.tipsController = tipsController;
     }
     /**
      * 读取选中目录下的所有图片文件 并存放在数组中  同时获取图片数量和总大小
      * @param directoryFile 从TreeController中传入 选中目录的文件
      */
+    long size;
     public void createImageViews(File directoryFile,FlowPane imageLabelsPane){
+        this.imageLabelsPane = imageLabelsPane;
         // 清空图片列表
         imageLabels.clear();
-        imageLabelsPane.getChildren().clear();
+
         imageCount = 0;
-        long size = 0;
+        size = 0;
         // 排除目录相同的情况 和 文件为空的情况
         if(directoryFile == null || oldPath.equals(directoryFile.getPath())){
             return;
@@ -79,7 +88,10 @@ public class ImagePreviewController {
         // 将图片总大小格式化为 MB
         imageTotalSize = BigDecimal.valueOf(size).divide(BigDecimal.valueOf(1024*1024),4,RoundingMode.HALF_EVEN);
 
-        imageLabelsPane.getChildren().addAll(imageLabels);
+        imageLabelsPane.getChildren().remove(0, imageLabelsPane.getChildren().size());
+        for(ImageLabel imagelabel : imageLabels){
+            imageLabelsPane.getChildren().add(imagelabel);
+        }
     }
     /**
      * 创建一个装载图片的标签
@@ -90,7 +102,7 @@ public class ImagePreviewController {
         Image image = new Image("file:" + file.getPath(),80,80,true,true);
         ImageView imageView = new ImageView(image);
 
-        ImageLabel imageLabel = new ImageLabel();
+        ImageLabel imageLabel = new ImageLabel(tipsController);
         imageLabel.setText(file.getName());
         imageLabel.setWrapText(true);
         imageLabel.setTextOverrun(OverrunStyle.CENTER_ELLIPSIS);
@@ -99,16 +111,16 @@ public class ImagePreviewController {
         imageLabel.setImageFileProperty(file);
         imageLabel.setContentDisplay(ContentDisplay.TOP);
         imageLabel.setPrefSize(120,120);
-        imageLabel.setContextMenu(menuController.getImageControlMenu());
+        imageLabel.setContextMenu(menuController.getImageControlMenu(imagePreviewController));
 
 
         imageLabel.setOnMouseClicked(event -> {
-            if(event.getButton().equals(MouseButton.PRIMARY)){
-                System.out.println("左键");
-                imageLabel.setScaleX(3);
-                imageLabel.setScaleY(3);
-
-            }
+//            if(event.getButton().equals(MouseButton.PRIMARY)){
+//                System.out.println("左键");
+//                imageLabel.setScaleX(3);
+//                imageLabel.setScaleY(3);
+//
+//            }
             if(event.getButton().equals(MouseButton.SECONDARY)){
                 System.out.println("右键");
             }
@@ -116,10 +128,12 @@ public class ImagePreviewController {
                 showImageController.createStage(presentFileList,imageLabel.getImageFileProperty());
             }
         });
-        imageLabel.setOnMouseExited(event -> {
-            imageLabel.setScaleX(1);
-            imageLabel.setScaleY(1);
-        });
+//        imageLabel.setOnMouseExited(event -> {
+//            imageLabel.setScaleX(1);
+//            imageLabel.setScaleY(1);
+//        });
+
+        imageLabel.addPictureNodeListener();
         return imageLabel;
     }
 
@@ -133,5 +147,20 @@ public class ImagePreviewController {
 
     public BigDecimal getImageTotalSize() {
         return imageTotalSize;
+    }
+
+    public String getOldPath() {
+        return oldPath;
+    }
+
+    public void refreshImageViews(File file) {
+        imageLabels.add(createImageLabel(file));
+        imageCount++;
+        size+=file.length();
+        imageTotalSize = BigDecimal.valueOf(size).divide(BigDecimal.valueOf(1024*1024),4,RoundingMode.HALF_EVEN);
+        imageLabelsPane.getChildren().remove(0, imageLabelsPane.getChildren().size());
+        for(ImageLabel imagelabel : imageLabels){
+            imageLabelsPane.getChildren().add(imagelabel);
+        }
     }
 }

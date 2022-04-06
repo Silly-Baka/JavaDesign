@@ -5,6 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.stage.Window;
 
 import java.net.URL;
 
@@ -15,6 +16,8 @@ import java.net.URL;
  * Description:
  */
 public class fxmlTest extends Application {
+
+    public static Window mainStage;
     public static void main(String[] args) {
         launch(args);
     }
