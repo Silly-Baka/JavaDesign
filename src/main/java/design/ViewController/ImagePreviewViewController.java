@@ -19,7 +19,6 @@ import java.io.File;
  * Description:
  */
 public class ImagePreviewViewController {
-    private ImagePreviewViewController imagePreviewViewController = this;
     private TreeController treeController;
     private ImagePreviewController imageController;
     private TipsController tipsController;
@@ -38,7 +37,7 @@ public class ImagePreviewViewController {
 
 
     public ImagePreviewViewController(){
-        menuController = new MenuController(imageLabelsPane,imagePreviewViewController);
+        menuController = new MenuController(imageLabelsPane,this);
         treeController = new TreeController(menuController);
         showImageController = new ShowImageController();
         tipsController = new TipsController();

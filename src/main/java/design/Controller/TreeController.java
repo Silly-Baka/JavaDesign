@@ -19,14 +19,14 @@ import java.io.IOException;
  * Description: 负责目录树的创建 以及目录树的获取
  */
 public class TreeController {
-    private static final Image image = new Image("file:JavaDesign/src/main/resources/img/directory.jpg");
+    private static final Image image = new Image(TreeController.class.getResource("/img/directory.jpg").toString());
 
     private MenuController menuController;
 
     private TreeItem<File> rootNode;
 
     public TreeController(){
-          rootNode = createTreeNode(new File("G:\\Program Files (x86)"));
+          rootNode = createTreeNode(new File("C:\\Program Files (x86)"));
     }
     public TreeController(MenuController menuController){
         this();

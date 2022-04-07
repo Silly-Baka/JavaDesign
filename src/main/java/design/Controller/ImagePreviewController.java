@@ -24,9 +24,6 @@ import java.util.ArrayList;
  * Description: 负责图片层的信息维护
  */
 public class ImagePreviewController {
-
-    private ImagePreviewController imagePreviewController = this;
-
     private FlowPane imageLabelsPane;
 
     private TipsController tipsController;
@@ -111,7 +108,7 @@ public class ImagePreviewController {
         imageLabel.setImageFileProperty(file);
         imageLabel.setContentDisplay(ContentDisplay.TOP);
         imageLabel.setPrefSize(120,120);
-        imageLabel.setContextMenu(menuController.getImageControlMenu(imagePreviewController));
+        imageLabel.setContextMenu(menuController.getImageControlMenu(this));
 
 
         imageLabel.setOnMouseClicked(event -> {

@@ -4,11 +4,12 @@ import design.ViewController.ImagePreviewViewController;
 import design.ViewController.fxmlTest;
 import design.pojo.ImageLabel;
 
-public class DeleteAction {
+public class DeleteController {
     ImagePreviewViewController imagePreviewViewController;
-    public DeleteAction (ImagePreviewViewController imagePreviewViewController) {
+    public DeleteController(ImagePreviewViewController imagePreviewViewController) {
         this.imagePreviewViewController = imagePreviewViewController;
-
+    }
+    public void deleteAction(){
         if(ImageLabel.getSelectedPictures().size()<=0) {
             return;
         }

@@ -4,8 +4,11 @@ import design.pojo.ImageLabel;
 import javafx.scene.input.Clipboard;
 import javafx.scene.input.ClipboardContent;
 
-public class CopyAction {
-    public CopyAction () {
+public class CopyController {
+    public CopyController() {
+
+    }
+    public void copyAction(){
         if(ImageLabel.getSelectedPictures().size()<=0) {
             return;
         }

@@ -48,8 +48,8 @@ public class ShowImageViewController {
         imageBox.setStyle("-fx-background-color: yellow");
     }
     public void initialize(){
-        left_button.setImage(new Image("file:JavaDesign/src/main/resources/img/left.jpg"));
-        right_button.setImage(new Image("file:JavaDesign/src/main/resources/img/right.jpg"));
+        left_button.setImage(new Image(getClass().getResource("/img/left.jpg").toString()));
+        right_button.setImage(new Image(getClass().getResource("/img/right.jpg").toString()));
         AnchorPane.setTopAnchor(left_button,imageShowStage.getHeight()/2-left_button.prefHeight(-1)/2);
         AnchorPane.setTopAnchor(right_button,imageShowStage.getHeight()/2-right_button.prefHeight(-1)/2);
 

@@ -10,10 +10,12 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.List;
 
-public class PasteAction {
+public class PasteController {
     ImagePreviewController imagePreviewController;
-    public PasteAction (ImagePreviewController imagePreviewController) {
+    public PasteController(ImagePreviewController imagePreviewController) {
         this.imagePreviewController = imagePreviewController;
+    }
+    public void pasteAction(){
         Clipboard clipboard = Clipboard.getSystemClipboard();
         List<File> files = (List<File>) (clipboard.getContent(DataFormat.FILES));
         if (files.size() <= 0) {
@@ -67,9 +69,6 @@ public class PasteAction {
             }
 
 //            imagePreviewViewController.showPicture();
-
-
-
         }
         clipboard.clear();
     }

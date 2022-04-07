@@ -5,8 +5,7 @@ import design.pojo.ImageLabel;
 import javafx.scene.Node;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
-import javafx.scene.input.MouseButton;
-import javafx.scene.input.MouseEvent;
+import javafx.scene.input.*;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.text.Text;
 
@@ -28,7 +27,19 @@ public class MenuController {
 
     private ContextMenu treeControlMenu;
 
+    private KeyCodeCombination copyKey;
+
+    private KeyCodeCombination pasteKey;
+
+    private KeyCodeCombination deleteKey;
+
+    public MenuController(){
+        copyKey = new KeyCodeCombination(KeyCode.C, KeyCombination.CONTROL_DOWN);
+        pasteKey = new KeyCodeCombination(KeyCode.V, KeyCombination.CONTROL_DOWN);
+        deleteKey = new KeyCodeCombination(KeyCode.DELETE);
+    }
     public MenuController (Node node, ImagePreviewViewController imagePreviewViewController) {
+        this();
         this.imagePreviewViewController = imagePreviewViewController;
         this.node = node;
     }
@@ -45,16 +56,24 @@ public class MenuController {
             MenuItem menuItem4 = new MenuItem("重命名");
             imageControlMenu = new ContextMenu(menuItem1,menuItem2,menuItem3,menuItem4);
 
+            CopyController copyController = new CopyController();
+            PasteController pasteController = new PasteController(imagePreviewController);
+            DeleteController deleteController = new DeleteController(imagePreviewViewController);
+
+            menuItem1.setAccelerator(copyKey);
+            menuItem2.setAccelerator(pasteKey);
+            menuItem3.setAccelerator(deleteKey);
+
             menuItem1.setOnAction(e->{
-                new CopyAction();
+                copyController.copyAction();
             });
 
             menuItem2.setOnAction(e->{
-                new PasteAction(imagePreviewController);
+                pasteController.pasteAction();
             });
 
             menuItem3.setOnAction(e->{
-                new DeleteAction(imagePreviewViewController);
+                deleteController.deleteAction();
             });
 
             menuItem4.setOnAction(e->{

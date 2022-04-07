@@ -15,12 +15,14 @@
         <prefWidth>300</prefWidth>
         <prefHeight>600</prefHeight>
     </TreeView>
-    <FlowPane fx:id="imageLabelsPane">
-        <AnchorPane.leftAnchor>330</AnchorPane.leftAnchor>
-        <prefWidth>900</prefWidth>
-        <hgap>10</hgap>
-        <vgap>10</vgap>
-    </FlowPane>
+    <ScrollPane AnchorPane.leftAnchor="300" prefHeight="600">
+        <FlowPane fx:id="imageLabelsPane">
+            <AnchorPane.leftAnchor>330</AnchorPane.leftAnchor>
+            <prefWidth>900</prefWidth>
+            <hgap>10</hgap>
+            <vgap>10</vgap>
+        </FlowPane>
+    </ScrollPane>
     <Label fx:id="tipsLabel">
         <prefHeight>30</prefHeight>
         <prefWidth>1200</prefWidth>
