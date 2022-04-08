@@ -160,4 +160,15 @@ public class ImagePreviewController {
             imageLabelsPane.getChildren().add(imagelabel);
         }
     }
+    public void refreshImageViews(ArrayList<ImageLabel> oldeImageLabels,ArrayList<File> newImageFiles) {
+        System.out.println(imageLabels.size());
+        imageLabels.removeAll(oldeImageLabels);
+        System.out.println(imageLabels.size());
+        imageLabelsPane.getChildren().remove(0, imageLabelsPane.getChildren().size());
+
+        for (File newImageFile : newImageFiles) {
+            imageLabels.add(createImageLabel(newImageFile));
+        }
+        imageLabelsPane.getChildren().addAll(imageLabels);
+    }
 }

@@ -6,4 +6,6 @@ module JavaDesign {
     exports design.ViewController;
     exports design.Controller;
     opens design.ViewController to javafx.fxml;
+    exports design.Utils;
+    opens design.Utils to javafx.fxml;
 }

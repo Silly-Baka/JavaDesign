@@ -8,6 +8,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TreeView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.io.File;
@@ -32,12 +33,14 @@ public class ImagePreviewViewController {
     private FlowPane imageLabelsPane;
     @FXML
     private Label tipsLabel;
+    @FXML
+    private VBox renameWindow;
 
     private Stage primaryStage;
 
 
     public ImagePreviewViewController(){
-        menuController = new MenuController(imageLabelsPane,this);
+        menuController = new MenuController(this);
         treeController = new TreeController(menuController);
         showImageController = new ShowImageController();
         tipsController = new TipsController();
@@ -50,9 +53,13 @@ public class ImagePreviewViewController {
 //        imageLabelsPane.setPrefWidth(primaryStage.getWidth()-AnchorPane.getLeftAnchor(imageLabelsPane));
 
         treeView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            menuController.setNode(imageLabelsPane);
             imageController.createImageViews(observable.getValue().getValue(),imageLabelsPane);
             tipsController.createTipsLabel(tipsLabel);
             setListener();
+            menuController.setRenameController(observable.getValue().getValue(),imageLabelsPane);
+
+
         });
     }
 

@@ -9,6 +9,8 @@ import javafx.scene.input.*;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.text.Text;
 
+import java.io.File;
+
 /**
  * User: 86176
  * Date: 2022/3/19
@@ -33,15 +35,22 @@ public class MenuController {
 
     private KeyCodeCombination deleteKey;
 
+    private CopyController copyController;
+
+    private PasteController pasteController;
+
+    private DeleteController deleteController;
+
+    private RenameController renameController;
+
     public MenuController(){
         copyKey = new KeyCodeCombination(KeyCode.C, KeyCombination.CONTROL_DOWN);
         pasteKey = new KeyCodeCombination(KeyCode.V, KeyCombination.CONTROL_DOWN);
         deleteKey = new KeyCodeCombination(KeyCode.DELETE);
     }
-    public MenuController (Node node, ImagePreviewViewController imagePreviewViewController) {
+    public MenuController (ImagePreviewViewController imagePreviewViewController) {
         this();
         this.imagePreviewViewController = imagePreviewViewController;
-        this.node = node;
     }
 
     /**
@@ -56,9 +65,10 @@ public class MenuController {
             MenuItem menuItem4 = new MenuItem("重命名");
             imageControlMenu = new ContextMenu(menuItem1,menuItem2,menuItem3,menuItem4);
 
-            CopyController copyController = new CopyController();
-            PasteController pasteController = new PasteController(imagePreviewController);
-            DeleteController deleteController = new DeleteController(imagePreviewViewController);
+            copyController = new CopyController();
+            pasteController = new PasteController(imagePreviewController);
+            deleteController = new DeleteController(imagePreviewViewController);
+            renameController = new RenameController(imagePreviewController);
 
             menuItem1.setAccelerator(copyKey);
             menuItem2.setAccelerator(pasteKey);
@@ -77,7 +87,7 @@ public class MenuController {
             });
 
             menuItem4.setOnAction(e->{
-
+                renameController.renameAction();
             });
 
             node.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent e) -> {
@@ -102,5 +112,12 @@ public class MenuController {
     }
     public ContextMenu getTreeControlMenu(){
         return null;
+    }
+    public void setRenameController(File directoryFile,FlowPane imageLabelsPane){
+        renameController.setDirectoryFile(directoryFile);
+    }
+
+    public void setNode(Node node) {
+        this.node = node;
     }
 }

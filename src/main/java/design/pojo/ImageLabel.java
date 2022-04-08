@@ -37,9 +37,6 @@ public class ImageLabel extends Label {
     //
     private TipsController tipsController;
 
-
-
-
     public ImageLabel(TipsController tipsController) {
         this.tipsController = tipsController;
     }

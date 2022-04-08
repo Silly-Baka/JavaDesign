@@ -1,4 +1,4 @@
-package design.Controller;
+package design.Utils;
 
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonBar;
@@ -7,7 +7,7 @@ import javafx.stage.Window;
 
 import java.util.Optional;
 
-public class MyAlert {
+public class AlertUtils {
     public static boolean showAlert(String p_header, String p_message, Window stage){
 
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION,p_message,new ButtonType("取消", ButtonBar.ButtonData.NO),
