@@ -4,6 +4,7 @@ import design.Utils.AlertUtils;
 import design.ViewController.ImagePreviewViewController;
 import design.ViewController.MainTest;
 import design.pojo.ImageLabel;
+import javafx.scene.control.Alert;
 
 public class DeleteController {
     ImagePreviewViewController imagePreviewViewController;
@@ -21,7 +22,7 @@ public class DeleteController {
             ImageLabel.getCutedPictures().clear();
         }
 
-        if(AlertUtils.showAlert("是否删除选中的图片？", "", MainTest.mainStage)) {
+        if(AlertUtils.showAlert(Alert.AlertType.WARNING,"是否删除选中的图片？", "", MainTest.mainStage)) {
             for(ImageLabel pNode : ImageLabel.getSelectedPictures()) {
                 imagePreviewViewController.getImageLabelsPane().getChildren().remove(pNode);
                 pNode.getImageFile().delete();

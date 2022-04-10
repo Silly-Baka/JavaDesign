@@ -8,9 +8,9 @@ import javafx.stage.Window;
 import java.util.Optional;
 
 public class AlertUtils {
-    public static boolean showAlert(String p_header, String p_message, Window stage){
+    public static boolean showAlert(Alert.AlertType alertType,String p_header, String p_message, Window stage){
 
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION,p_message,new ButtonType("取消", ButtonBar.ButtonData.NO),
+        Alert alert = new Alert(alertType,p_message,new ButtonType("取消", ButtonBar.ButtonData.NO),
                 new ButtonType("确定", ButtonBar.ButtonData.YES));
 
         alert.setTitle("注意窗口");

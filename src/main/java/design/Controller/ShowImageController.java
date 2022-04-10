@@ -1,9 +1,11 @@
 package design.Controller;
 
+import design.Utils.AlertUtils;
 import design.Utils.ImageShowUtils;
 import design.ViewController.ShowImageViewController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
@@ -26,6 +28,8 @@ public class ShowImageController {
     private Stage imageShowStage;
 
     private ArrayList<Image> imageList;
+
+    private ArrayList<File> presentFileList;
 
     private AnchorPane root;
 
@@ -58,7 +62,7 @@ public class ShowImageController {
      * @param file 选择的图片文件 用于获取索引
      */
     public void createStage(ArrayList<File> presentFileList,File file){
-
+        this.presentFileList = presentFileList;
         imageBox.getChildren().clear();
         imageList = ImageShowUtils.createImageList(presentFileList);
         // 获取选中的图片所在的索引
@@ -72,6 +76,7 @@ public class ShowImageController {
             Scene scene = new Scene(root);
             imageShowStage.setScene(scene);
         }
+        imageShowStage.setTitle(file.getName());
         imageShowStage.show();
     }
 
@@ -86,11 +91,8 @@ public class ShowImageController {
         double imgWidth = image.getWidth();
         double imgHeight = image.getHeight();
 
-        double paneWidth = 1100;
+        double paneWidth = 1000;
         double paneHeight = 500;
-
-        double finalWidth = Math.min(imgWidth,paneWidth);
-        double finalHeight = Math.min(imgHeight,paneHeight);
 
         ImageView imageView = new ImageView();
         ImageShowUtils.setImageSize(imageView,imgWidth,imgHeight,paneWidth,paneHeight);
@@ -114,9 +116,6 @@ public class ShowImageController {
         double paneWidth = imagePane.getPrefWidth();
         double paneHeight = imagePane.getPrefHeight();
 
-        double finalWidth = Math.min(imgWidth,paneWidth);
-        double finalHeight = Math.min(imgHeight,paneHeight);
-
         ImageView imageView = new ImageView();
         ImageShowUtils.setImageSize(imageView,imgWidth,imgHeight,paneWidth,paneHeight);
         imageView.setImage(image);
@@ -124,11 +123,29 @@ public class ShowImageController {
         return imageView;
     }
 
+    /**
+     * @return 返回当前图片索引
+     */
     public Integer getFileIndex() {
         return fileIndex;
     }
 
+    /**
+     * 更改图片索引
+     * @param fileIndex 新的图片索引
+     */
     public void setFileIndex(Integer fileIndex) {
-        this.fileIndex = fileIndex;
+        // 到达最后一张 无法再下一张
+        if(fileIndex >= imageList.size()){
+            AlertUtils.showAlert(Alert.AlertType.WARNING,"图片已到达最后一张！无法再切换下一张！","",imageShowStage);
+        }else if (fileIndex < 0){
+            // 第一张无法再前一张
+            AlertUtils.showAlert(Alert.AlertType.WARNING,"图片已是第一张！无法再切换上一张！","",imageShowStage);
+        }else {
+            this.fileIndex = fileIndex;
+        }
+    }
+    public void setImageShowStageTitle(){
+        imageShowStage.setTitle(presentFileList.get(fileIndex).getName());
     }
 }

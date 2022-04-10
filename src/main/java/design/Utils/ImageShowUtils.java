@@ -95,6 +95,12 @@ public class ImageShowUtils {
 
         tt.play();
     }
+
+    /**
+     * 将图片文件数组包装成图片数组
+     * @param imageFileList 图片文件数组
+     * @return 图片数组
+     */
     public static ArrayList<Image> createImageList(ArrayList<File> imageFileList){
         ArrayList<Image> imageList = new ArrayList<>();
         for (File file : imageFileList) {
@@ -106,11 +112,11 @@ public class ImageShowUtils {
 
     /**
      * 设置 ImageView 的大小 根据窗口的长宽比 等比例缩放
-     * @param imageView
-     * @param imgWidth
-     * @param imgHeight
-     * @param containWidth
-     * @param containHeight
+     * @param imageView 传入的图片组件
+     * @param imgWidth 图片宽度
+     * @param imgHeight 图片高度
+     * @param containWidth 窗口宽度
+     * @param containHeight 窗口高度
      */
     public static void setImageSize(ImageView imageView,double imgWidth,double imgHeight,double containWidth,double containHeight){
         double finalWidth = containWidth;

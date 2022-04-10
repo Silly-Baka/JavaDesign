@@ -48,6 +48,7 @@ public class ShowImageViewController {
         imageBox.setStyle("-fx-background-color: yellow");
     }
     public void initialize(){
+        // 初始化图片切换按钮
         left_button.setImage(new Image(getClass().getResource("/img/left.jpg").toString()));
         right_button.setImage(new Image(getClass().getResource("/img/right.jpg").toString()));
         AnchorPane.setTopAnchor(left_button,imageShowStage.getHeight()/2-left_button.prefHeight(-1)/2);
@@ -62,6 +63,7 @@ public class ShowImageViewController {
 
         right_button.setOnMouseClicked(event -> {
             showImageController.setFileIndex(showImageController.getFileIndex()+1);
+            showImageController.setImageShowStageTitle();
             imageBox.getChildren().clear();
             ImageView newImage = showImageController.getImageView(imagePane);
             imageBox.getChildren().add(newImage);
@@ -69,6 +71,7 @@ public class ShowImageViewController {
         });
         left_button.setOnMouseClicked(event -> {
             showImageController.setFileIndex(showImageController.getFileIndex()-1);
+            showImageController.setImageShowStageTitle();
             imageBox.getChildren().clear();
             ImageView newImage = showImageController.getImageView(imagePane);
             imageBox.getChildren().add(newImage);

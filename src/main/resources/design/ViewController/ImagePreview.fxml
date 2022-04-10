@@ -15,7 +15,7 @@
     <ScrollPane AnchorPane.leftAnchor="300" prefHeight="600">
         <FlowPane fx:id="imageLabelsPane">
             <AnchorPane.leftAnchor>330</AnchorPane.leftAnchor>
-            <prefWidth>900</prefWidth>
+            <prefWidth>880</prefWidth>
             <hgap>10</hgap>
             <vgap>10</vgap>
         </FlowPane>
