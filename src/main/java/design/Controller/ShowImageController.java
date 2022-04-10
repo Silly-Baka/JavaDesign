@@ -2,14 +2,22 @@ package design.Controller;
 
 import design.Utils.AlertUtils;
 import design.Utils.ImageShowUtils;
+import design.ViewController.MainTest;
 import design.ViewController.ShowImageViewController;
+import javafx.animation.Animation;
+import javafx.animation.Interpolator;
+import javafx.animation.TranslateTransition;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.effect.DisplacementMap;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 import java.io.File;
 import java.io.IOException;
@@ -37,11 +45,29 @@ public class ShowImageController {
 
     private HBox imageBox;
 
+    private HBox tempImageBox;
+
+    private static ImageView oldImageView;
+
+    private static ImageView nextImageView;
+
+    private TranslateTransition tt;
+
+    private DisplacementMap disp1;
+
+    private DisplacementMap disp2;
+
     public ShowImageController(){
         getController();
         imageBox = showImageViewController.getImageBox();
         imageShowStage = showImageViewController.getImageShowStage();
         showImageViewController.setImageShowController(this);
+        tempImageBox = showImageViewController.getTempImageBox();
+        tt = new TranslateTransition();
+        disp1 = new DisplacementMap();
+        imageBox.setEffect(disp1);
+        disp2 = new DisplacementMap();
+        tempImageBox.setEffect(disp2);
     }
     public void getController() {
         try {
@@ -64,6 +90,7 @@ public class ShowImageController {
     public void createStage(ArrayList<File> presentFileList,File file){
         this.presentFileList = presentFileList;
         imageBox.getChildren().clear();
+        tempImageBox.getChildren().clear();
         imageList = ImageShowUtils.createImageList(presentFileList);
         // 获取选中的图片所在的索引
         fileIndex = presentFileList.indexOf(file);
@@ -123,6 +150,22 @@ public class ShowImageController {
         return imageView;
     }
 
+    public ImageView getNextImageView(GridPane imagePane){
+        Image image = imageList.get(fileIndex+1);
+
+        double imgWidth = image.getWidth();
+        double imgHeight = image.getHeight();
+
+        double paneWidth = imagePane.getPrefWidth();
+        double paneHeight = imagePane.getPrefHeight();
+
+        ImageView imageView = new ImageView();
+        ImageShowUtils.setImageSize(imageView,imgWidth,imgHeight,paneWidth,paneHeight);
+        imageView.setImage(image);
+
+        return imageView;
+    }
+
     /**
      * @return 返回当前图片索引
      */
@@ -147,5 +190,84 @@ public class ShowImageController {
     }
     public void setImageShowStageTitle(){
         imageShowStage.setTitle(presentFileList.get(fileIndex).getName());
+    }
+
+    /**
+     * 幻灯片播放功能
+     */
+    public void slideshowAction(GridPane imagePane){
+        Pane pane = new Pane();
+        tt.setDuration(Duration.seconds(1.5));
+        tt.setNode(pane);
+        tt.setFromX(0);
+        tt.setToX(imagePane.getWidth()+10);
+        tt.setInterpolator(Interpolator.LINEAR);
+
+//        tempImageBox.setStyle("-fx-background-color: pink");
+
+        nextImageView = refreshImageAndPlay(imagePane);
+        pane.translateXProperty().addListener(new ChangeListener<Number>() {
+            @Override
+            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+                disp1.setOffsetX(-newValue.doubleValue()/imagePane.getWidth());
+                disp2.setOffsetX(1-newValue.doubleValue()/imagePane.getWidth());
+            }
+        });
+        tt.setOnFinished(event -> {
+            oldImageView = nextImageView;
+            disp1.setOffsetX(0);
+            imageBox.getChildren().clear();
+            imageBox.getChildren().add(oldImageView);
+            fileIndex++;
+            setImageShowStageTitle();
+            // 如果幻灯片未到最后一张 则暂停一秒后继续播放
+            if(fileIndex < presentFileList.size()-1){
+                try {
+                    Thread.currentThread().sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                nextImageView = refreshImageAndPlay(imagePane);
+            }else{
+                // 幻灯片结束
+                AlertUtils.AnimationShowAlert(Alert.AlertType.CONFIRMATION,"幻灯片播放已完成！","",imageShowStage);
+            }
+        });
+        // 设置幻灯片界面关闭的监听器
+        imageShowStage.setOnCloseRequest(event -> {
+            // 如果动画仍然在继续  则关闭幻灯片窗口就停止该动画
+            if(tt.getStatus()== Animation.Status.RUNNING){
+                tt.stop();
+                disp1.setOffsetX(0);
+                tempImageBox.getChildren().clear();
+                AlertUtils.AnimationShowAlert(Alert.AlertType.CONFIRMATION,"幻灯片播放已手动停止！","", MainTest.mainStage);
+            }
+        });
+    }
+
+    /**
+     * 暂停当前的幻灯片 并把图片恢复到原位
+     */
+    public void slideshowStopAction(){
+        // 如果动画仍然在继续  则停止该动画
+        if(tt.getStatus()== Animation.Status.RUNNING){
+            tt.stop();
+            disp1.setOffsetX(0);
+            tempImageBox.getChildren().clear();
+            AlertUtils.AnimationShowAlert(Alert.AlertType.CONFIRMATION,"幻灯片播放已手动停止！","", imageShowStage);
+        }
+    }
+
+    /**
+     * 刷新下一张照片同时再次开始幻灯片动画
+     * @param imagePane 当前图片布局
+     * @return 返回下一张照片
+     */
+    public ImageView refreshImageAndPlay(GridPane imagePane){
+        tempImageBox.getChildren().clear();
+        ImageView nextImageView = getNextImageView(imagePane);
+        tempImageBox.getChildren().add(nextImageView);
+        tt.play();
+        return nextImageView;
     }
 }

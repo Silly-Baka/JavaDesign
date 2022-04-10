@@ -24,7 +24,7 @@ import javafx.util.Duration;
  */
 public class showTest extends Application {
     @Override
-    public void start(Stage primaryStage) throws Exception {
+    public void start(Stage primaryStage){
 
         Button button = new Button();
         Image image = new Image(getClass().getResource("/img/left.jpg").toString());
@@ -116,7 +116,7 @@ public class showTest extends Application {
         });
         tt.setOnFinished(event -> {
 //            stackPane.getChildren().remove(hBox2);
-//            hBox2.setVisible(false);
+            hBox2.setVisible(false);
         });
     }
 

@@ -1,19 +1,18 @@
 package design.ViewController;
 
 import design.Controller.ShowImageController;
-import javafx.animation.TranslateTransition;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
+import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
-
-import java.util.ArrayList;
 
 /**
  * User: 86176
@@ -23,17 +22,21 @@ import java.util.ArrayList;
  */
 public class ShowImageViewController {
     @FXML
-    private AnchorPane root;
-    @FXML
     private ImageView left_button;
     @FXML
     private ImageView right_button;
     @FXML
     private GridPane imagePane;
+    @FXML
+    private Button slideShowButton;
+    @FXML
+    private Button slideShowStopButton;
+
+    private StackPane stackPane;
 //    @FXML
     private HBox imageBox;
 
-    private ArrayList<Image> imageList;
+    private HBox tempImageBox;
 
     private ShowImageController showImageController;
 
@@ -45,7 +48,14 @@ public class ShowImageViewController {
         imageShowStage.setHeight(600);
         imageBox = new HBox();
         imageBox.setAlignment(Pos.CENTER);
-        imageBox.setStyle("-fx-background-color: yellow");
+//        imageBox.setStyle("-fx-background-color: yellow");
+
+        tempImageBox = new HBox();
+        tempImageBox.setAlignment(Pos.CENTER);
+//        tempImageBox.setStyle("-fx-background-color: pink");
+        stackPane = new StackPane();
+        stackPane.getChildren().addAll(tempImageBox,imageBox);
+
     }
     public void initialize(){
         // 初始化图片切换按钮
@@ -56,39 +66,45 @@ public class ShowImageViewController {
 
         AnchorPane.setLeftAnchor(right_button,imageShowStage.getWidth()-right_button.prefWidth(-1));
         AnchorPane.setLeftAnchor(imagePane,left_button.prefWidth(-1));
-//        imagePane.setPrefHeight(imageShowStage.getHeight()-100);
-//        imagePane.setPrefWidth(imageShowStage.getWidth()-left_button.prefWidth(-1)*2);
-        imagePane.getChildren().add(imageBox);
-        imagePane.setStyle("-fx-background-color: green");
+
+        imagePane.getChildren().add(stackPane);
 
         right_button.setOnMouseClicked(event -> {
             showImageController.setFileIndex(showImageController.getFileIndex()+1);
             showImageController.setImageShowStageTitle();
-            imageBox.getChildren().clear();
-            ImageView newImage = showImageController.getImageView(imagePane);
-            imageBox.getChildren().add(newImage);
-            System.out.println("向右按钮");
+            refreshImageBox();
         });
         left_button.setOnMouseClicked(event -> {
             showImageController.setFileIndex(showImageController.getFileIndex()-1);
             showImageController.setImageShowStageTitle();
-            imageBox.getChildren().clear();
-            ImageView newImage = showImageController.getImageView(imagePane);
-            imageBox.getChildren().add(newImage);
-            System.out.println("向左按钮");
+            refreshImageBox();
         });
         imageShowStage.widthProperty().addListener(new ChangeListener<Number>() {
             @Override
             public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
-                imagePane.setPrefWidth(imageShowStage.getWidth()-left_button.prefWidth(-1)*2);
-//                ImageShowUtils.
+                imagePane.setPrefWidth(newValue.doubleValue()-left_button.prefWidth(-1)*2);
+                AnchorPane.setLeftAnchor(right_button,newValue.doubleValue()-right_button.prefWidth(-1));
+                AnchorPane.setLeftAnchor(imagePane,left_button.prefWidth(-1));
+                refreshImageBox();
             }
         });
         imageShowStage.heightProperty().addListener(new ChangeListener<Number>() {
             @Override
             public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
-                imagePane.setPrefHeight(imageShowStage.getHeight()-100);
+                imagePane.setPrefHeight(newValue.doubleValue()-100);
+                AnchorPane.setTopAnchor(left_button,newValue.doubleValue()/2-left_button.prefHeight(-1)/2);
+                AnchorPane.setTopAnchor(right_button,newValue.doubleValue()/2-right_button.prefHeight(-1)/2);
+                refreshImageBox();
             }
+        });
+
+        // 设置幻灯片播放按钮的点击事件
+        slideShowButton.setOnAction(event -> {
+            slideshowAction(imagePane);
+        });
+        // 设置幻灯片暂停按钮的暂停事件
+        slideShowStopButton.setOnAction(event -> {
+            slideshowStopAction();
         });
     }
 
@@ -101,5 +117,31 @@ public class ShowImageViewController {
 
     public void setImageShowController(ShowImageController showImageController) {
         this.showImageController = showImageController;
+    }
+
+    public HBox getTempImageBox() {
+        return tempImageBox;
+    }
+
+    /**
+     * 更新ImageBox中的图片
+     */
+    public void refreshImageBox(){
+        imageBox.getChildren().clear();
+        ImageView newImage = showImageController.getImageView(imagePane);
+        imageBox.getChildren().add(newImage);
+    }
+    /**
+     * 幻灯片播放功能
+     */
+    public void slideshowAction(GridPane imagePane){
+        showImageController.slideshowAction(imagePane);
+    }
+
+    /**
+     * 幻灯片暂停功能
+     */
+    public void slideshowStopAction(){
+        showImageController.slideshowStopAction();
     }
 }
