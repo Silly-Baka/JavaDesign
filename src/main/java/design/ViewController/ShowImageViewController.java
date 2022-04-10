@@ -19,7 +19,7 @@ import java.util.ArrayList;
  * User: 86176
  * Date: 2022/3/28
  * Time: 15:45
- * Description:
+ * Description: 幻灯片界面的视图控制类
  */
 public class ShowImageViewController {
     @FXML
@@ -65,7 +65,6 @@ public class ShowImageViewController {
             imageBox.getChildren().clear();
             ImageView newImage = showImageController.getImageView(imagePane);
             imageBox.getChildren().add(newImage);
-
             System.out.println("向右按钮");
         });
         left_button.setOnMouseClicked(event -> {

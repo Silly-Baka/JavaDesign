@@ -15,16 +15,18 @@ import java.util.Optional;
  * Time: 17:24
  * Description:
  */
-public class RenameDialog extends Dialog<RenameProperty> {
+public class RenameMulDialog extends Dialog<RenameProperty> {
     private TextField prefix;
 
     private TextField startNum;
 
     private TextField numBits;
 
-    public RenameDialog(){
+    public RenameMulDialog(){
         super();
         this.getDialogPane().getButtonTypes().addAll(ButtonType.YES,ButtonType.NO);
+        this.setTitle("多选重命名模式");
+        this.setHeaderText("请输入重命名的格式");
 
         prefix = new TextField();
         prefix.setPromptText("新名字的前缀");

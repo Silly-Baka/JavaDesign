@@ -15,7 +15,7 @@ import java.net.URL;
  * Time: 11:48
  * Description:
  */
-public class fxmlTest extends Application {
+public class MainTest extends Application {
 
     public static Window mainStage;
     public static void main(String[] args) {

@@ -25,7 +25,8 @@
     </ImageView>
 
     <GridPane fx:id="imagePane" alignment="CENTER" prefWidth="1000" prefHeight="500">
-<!--        <HBox fx:id="imageBox" alignment="CENTER">-->
+
+<!--        <HBox fx:id="imageBox" alignment="CENTER" spacing="">-->
 
 <!--        </HBox>-->
     </GridPane>

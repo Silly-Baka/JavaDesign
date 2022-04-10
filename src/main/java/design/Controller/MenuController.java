@@ -43,18 +43,20 @@ public class MenuController {
 
     private RenameController renameController;
 
+    private TipsController tipsController;
+
     public MenuController(){
         copyKey = new KeyCodeCombination(KeyCode.C, KeyCombination.CONTROL_DOWN);
         pasteKey = new KeyCodeCombination(KeyCode.V, KeyCombination.CONTROL_DOWN);
         deleteKey = new KeyCodeCombination(KeyCode.DELETE);
     }
-    public MenuController (ImagePreviewViewController imagePreviewViewController) {
+    public MenuController (ImagePreviewViewController imagePreviewViewController,TipsController tipsController) {
         this();
         this.imagePreviewViewController = imagePreviewViewController;
+        this.tipsController = tipsController;
     }
 
     /**
-     *
      * @return 获取图片的右键菜单
      */
     public ContextMenu getImageControlMenu(ImagePreviewController imagePreviewController){
@@ -90,20 +92,22 @@ public class MenuController {
                 renameController.renameAction();
             });
 
-            node.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent e) -> {
-                if (e.getButton() == MouseButton.SECONDARY)
-                    imageControlMenu.show(node, e.getScreenX(), e.getScreenY());
-                else {
-                    if (imageControlMenu.isShowing())
-                        imageControlMenu.hide();
-                }
-            });
+            // ContextMenu自带的 不用写这个
+//            node.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent e) -> {
+//                if (e.getButton() == MouseButton.SECONDARY)
+//                    imageControlMenu.show(node, e.getScreenX(), e.getScreenY());
+//                else {
+//                    if (imageControlMenu.isShowing())
+//                        imageControlMenu.hide();
+//                }
+//            });
 
             //点击空白处清空已选
             node.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent e) -> {
                 Node clickNode = e.getPickResult().getIntersectedNode();
                 if (clickNode instanceof FlowPane && !(clickNode instanceof ImageLabel) && !(clickNode instanceof Text)) {// 鼠标点击非图片节点
                     ImageLabel.clearSelected();// 清空已选
+                    tipsController.setSelectedCount(ImageLabel.getSelectedPictures().size());
                 }
             });
 
@@ -112,9 +116,6 @@ public class MenuController {
     }
     public ContextMenu getTreeControlMenu(){
         return null;
-    }
-    public void setRenameController(File directoryFile,FlowPane imageLabelsPane){
-        renameController.setDirectoryFile(directoryFile);
     }
 
     public void setNode(Node node) {

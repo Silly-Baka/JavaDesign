@@ -17,7 +17,7 @@ import java.io.File;
  * User: 86176
  * Date: 2022/3/28
  * Time: 11:12
- * Description:
+ * Description: 图片预览界面的视图控制了
  */
 public class ImagePreviewViewController {
     private TreeController treeController;
@@ -40,10 +40,10 @@ public class ImagePreviewViewController {
 
 
     public ImagePreviewViewController(){
-        menuController = new MenuController(this);
+        tipsController = new TipsController();
+        menuController = new MenuController(this,tipsController);
         treeController = new TreeController(menuController);
         showImageController = new ShowImageController();
-        tipsController = new TipsController();
         imageController = new ImagePreviewController(menuController, showImageController, tipsController);
         tipsController.setImageController(imageController);
     }
@@ -57,8 +57,6 @@ public class ImagePreviewViewController {
             imageController.createImageViews(observable.getValue().getValue(),imageLabelsPane);
             tipsController.createTipsLabel(tipsLabel);
             setListener();
-            menuController.setRenameController(observable.getValue().getValue(),imageLabelsPane);
-
 
         });
     }

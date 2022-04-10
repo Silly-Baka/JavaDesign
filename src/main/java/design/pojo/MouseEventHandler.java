@@ -5,9 +5,9 @@ import javafx.scene.Node;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 
-public class MouseEvenHandler implements EventHandler<MouseEvent> {
-    Node node;
-    public MouseEvenHandler(Node node){
+public class MouseEventHandler implements EventHandler<MouseEvent> {
+    private Node node;
+    public MouseEventHandler(Node node){
         this.node = node;
     }
 

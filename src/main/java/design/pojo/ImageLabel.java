@@ -90,7 +90,7 @@ public class ImageLabel extends Label {
         for (ImageLabel pNode : selectedPictures) {
             pNode.selected.set(false);
         }
-        selectedPictures.removeAll(selectedPictures);
+        selectedPictures.clear();
     }
 
     public void addPictureNodeListener() {
@@ -114,7 +114,7 @@ public class ImageLabel extends Label {
                 this.setStyle("-fx-background-color:transparent;");
 
         });
-        this.addEventHandler(MouseEvent.MOUSE_CLICKED, new MouseEvenHandler(this));
+        this.addEventHandler(MouseEvent.MOUSE_CLICKED, new MouseEventHandler(this));
     }
 
     public static ArrayList<ImageLabel> getSelectedPictures() {return selectedPictures;}

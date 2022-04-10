@@ -8,7 +8,9 @@ import javafx.beans.value.ObservableValue;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ContentDisplay;
 import javafx.scene.effect.DisplacementMap;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
@@ -24,7 +26,15 @@ public class showTest extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
 
-        Button button = new Button("开始");
+        Button button = new Button();
+        Image image = new Image(getClass().getResource("/img/left.jpg").toString());
+        ImageView imageView = new ImageView();
+        imageView.setImage(image);
+        imageView.setFitWidth(100);
+        imageView.setFitHeight(100);
+        button.setGraphic(imageView);
+        button.setContentDisplay(ContentDisplay.RIGHT);
+
         Button button1 = new Button("回去");
         Button bt1 = new Button("按钮1");
         Button bt2 = new Button("按钮2");

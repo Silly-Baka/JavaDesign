@@ -4,6 +4,7 @@ import design.Utils.StringUtils;
 import design.pojo.ImageLabel;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.geometry.Pos;
 import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.OverrunStyle;
 import javafx.scene.image.Image;
@@ -16,6 +17,7 @@ import java.io.File;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * User: 86176
@@ -96,10 +98,11 @@ public class ImagePreviewController {
      * @return 返回图片标签
      */
     public ImageLabel createImageLabel(File file){
-        Image image = new Image("file:" + file.getPath(),80,80,true,true);
+        Image image = new Image("file:" + file.getPath(),120,80,true,true);
         ImageView imageView = new ImageView(image);
 
         ImageLabel imageLabel = new ImageLabel(tipsController);
+        imageLabel.setAlignment(Pos.CENTER);
         imageLabel.setText(file.getName());
         imageLabel.setWrapText(true);
         imageLabel.setTextOverrun(OverrunStyle.CENTER_ELLIPSIS);
@@ -107,7 +110,7 @@ public class ImagePreviewController {
         imageLabel.setTextAlignment(TextAlignment.CENTER);
         imageLabel.setImageFileProperty(file);
         imageLabel.setContentDisplay(ContentDisplay.TOP);
-        imageLabel.setPrefSize(120,120);
+        imageLabel.setPrefSize(200,160);
         imageLabel.setContextMenu(menuController.getImageControlMenu(this));
 
 
@@ -150,6 +153,10 @@ public class ImagePreviewController {
         return oldPath;
     }
 
+    /**
+     * 粘贴功能的更新图片缩略图视图层
+     * @param file 粘贴的新图片文件
+     */
     public void refreshImageViews(File file) {
         imageLabels.add(createImageLabel(file));
         imageCount++;
@@ -160,7 +167,13 @@ public class ImagePreviewController {
             imageLabelsPane.getChildren().add(imagelabel);
         }
     }
-    public void refreshImageViews(ArrayList<ImageLabel> oldeImageLabels,ArrayList<File> newImageFiles) {
+
+    /**
+     * 重命名功能的更新缩略图视图层
+     * @param oldeImageLabels 旧的图片数组
+     * @param newImageFiles 重命名后的图片文件数组
+     */
+    public void refreshImageViews(ArrayList<ImageLabel> oldeImageLabels, List<File> newImageFiles) {
         System.out.println(imageLabels.size());
         imageLabels.removeAll(oldeImageLabels);
         System.out.println(imageLabels.size());

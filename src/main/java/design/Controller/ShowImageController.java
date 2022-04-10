@@ -75,6 +75,11 @@ public class ShowImageController {
         imageShowStage.show();
     }
 
+    /**
+     * 用于切换图片功能
+     * 获取 fileIndex所标记的图片并包装成ImageView  同时自适应更改宽高
+     * @return 返回新图片
+     */
     public ImageView getImageView(){
         Image image = imageList.get(fileIndex);
 
@@ -94,6 +99,12 @@ public class ShowImageController {
         return imageView;
     }
 
+    /**
+     * 用于切换图片功能
+     * 获取 fileIndex所标记的图片并包装成ImageView  同时自适应更改宽高
+     * @param imagePane 用于获取图片布局的大小
+     * @return 返回新图片
+     */
     public ImageView getImageView(GridPane imagePane){
         Image image = imageList.get(fileIndex);
 

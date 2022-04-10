@@ -20,9 +20,9 @@ public class TipsController {
 
     private int selectedCount = 0;
 
-    int imageCount;
+    private int imageCount;
 
-    double imageTotalSize;
+    private double imageTotalSize;
 
     public TipsController(){
 
