@@ -1,6 +1,6 @@
-package design.Controller;
+package design.controller;
 
-import design.pojo.ImageLabel;
+import design.model.ImageLabel;
 import javafx.scene.input.Clipboard;
 import javafx.scene.input.ClipboardContent;
 

@@ -1,6 +1,6 @@
-package design.ViewController;
+package design.viewController;
 
-import design.Controller.ShowImageController;
+import design.controller.ShowImageController;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;

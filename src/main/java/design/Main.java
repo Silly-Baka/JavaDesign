@@ -1,5 +1,6 @@
-package design.ViewController;
+package design;
 
+import design.viewController.ImagePreviewViewController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -15,7 +16,7 @@ import java.net.URL;
  * Time: 11:48
  * Description:
  */
-public class MainTest extends Application {
+public class Main extends Application {
 
     public static Window mainStage;
     public static void main(String[] args) {
@@ -24,7 +25,7 @@ public class MainTest extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        URL url = getClass().getResource("ImagePreview.fxml");
+        URL url = getClass().getResource("ViewController/ImagePreview.fxml");
         FXMLLoader fxmlLoader = new FXMLLoader();
         fxmlLoader.setLocation(url);
         Parent root = fxmlLoader.load();

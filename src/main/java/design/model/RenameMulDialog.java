@@ -1,4 +1,4 @@
-package design.pojo;
+package design.model;
 
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
@@ -6,8 +6,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.util.Callback;
-
-import java.util.Optional;
 
 /**
  * User: 86176

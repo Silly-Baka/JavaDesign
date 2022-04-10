@@ -6,7 +6,7 @@
 <?import javafx.scene.control.Button?>
 <AnchorPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
-            fx:controller="design.ViewController.ShowImageViewController"
+            fx:controller="design.viewController.ShowImageViewController"
             prefHeight="600.0" prefWidth="1200.0">
     <Button fx:id="slideShowButton" text="幻灯片播放">
     </Button>

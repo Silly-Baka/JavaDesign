@@ -1,4 +1,4 @@
-package design.pojo;
+package design.model;
 
 import javafx.event.EventHandler;
 import javafx.scene.Node;

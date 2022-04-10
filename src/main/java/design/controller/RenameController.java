@@ -1,9 +1,8 @@
-package design.Controller;
+package design.controller;
 
-import design.pojo.ImageLabel;
-import design.pojo.RenameMulDialog;
-import design.pojo.RenameProperty;
-import javafx.scene.control.Label;
+import design.model.ImageLabel;
+import design.model.RenameMulDialog;
+import design.model.RenameProperty;
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.layout.FlowPane;
 

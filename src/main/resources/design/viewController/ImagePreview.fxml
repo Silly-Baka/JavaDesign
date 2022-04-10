@@ -5,7 +5,7 @@
 
 <AnchorPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
-            fx:controller="design.ViewController.ImagePreviewViewController"
+            fx:controller="design.viewController.ImagePreviewViewController"
             prefHeight="400.0" prefWidth="1000.0"
             fx:id="rootPane">
     <TreeView fx:id="treeView">

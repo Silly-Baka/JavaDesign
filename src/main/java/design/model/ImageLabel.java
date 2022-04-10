@@ -1,6 +1,6 @@
-package design.pojo;
+package design.model;
 
-import design.Controller.TipsController;
+import design.controller.TipsController;
 import javafx.beans.InvalidationListener;
 import javafx.beans.Observable;
 import javafx.beans.property.BooleanProperty;

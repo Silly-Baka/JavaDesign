@@ -1,6 +1,6 @@
-package design.ViewController;
+package design.viewController;
 
-import design.Controller.*;
+import design.controller.*;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;

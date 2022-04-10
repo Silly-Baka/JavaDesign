@@ -1,15 +1,13 @@
-package design.Controller;
+package design.controller;
 
-import design.ViewController.ImagePreviewViewController;
-import design.pojo.ImageLabel;
+import design.viewController.ImagePreviewViewController;
+import design.model.ImageLabel;
 import javafx.scene.Node;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.input.*;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.text.Text;
-
-import java.io.File;
 
 /**
  * User: 86176

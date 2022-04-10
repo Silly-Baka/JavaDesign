@@ -1,9 +1,9 @@
-package design.Controller;
+package design.controller;
 
 import design.Utils.AlertUtils;
 import design.Utils.ImageShowUtils;
-import design.ViewController.MainTest;
-import design.ViewController.ShowImageViewController;
+import design.Main;
+import design.viewController.ShowImageViewController;
 import javafx.animation.Animation;
 import javafx.animation.Interpolator;
 import javafx.animation.TranslateTransition;
@@ -72,7 +72,7 @@ public class ShowImageController {
     public void getController() {
         try {
 //            URL url = getClass().getResource("ShowImageView.fxml");
-            URL url = getClass().getResource("/design/ViewController/ShowImageView.fxml");
+            URL url = getClass().getResource("/design/viewController/ShowImageView.fxml");
 //            URL url2 = getClass().getClassLoader().getResource("design/ViewController/ShowImageView.fxml");
             FXMLLoader fxmlLoader = new FXMLLoader();
             fxmlLoader.setLocation(url);
@@ -240,7 +240,7 @@ public class ShowImageController {
                 tt.stop();
                 disp1.setOffsetX(0);
                 tempImageBox.getChildren().clear();
-                AlertUtils.AnimationShowAlert(Alert.AlertType.CONFIRMATION,"幻灯片播放已手动停止！","", MainTest.mainStage);
+                AlertUtils.AnimationShowAlert(Alert.AlertType.CONFIRMATION,"幻灯片播放已手动停止！","", Main.mainStage);
             }
         });
     }

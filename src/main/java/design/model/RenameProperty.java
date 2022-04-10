@@ -1,4 +1,4 @@
-package design.pojo;
+package design.model;
 
 /**
  * User: 86176

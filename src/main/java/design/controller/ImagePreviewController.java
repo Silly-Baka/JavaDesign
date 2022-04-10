@@ -1,7 +1,7 @@
-package design.Controller;
+package design.controller;
 
 import design.Utils.StringUtils;
-import design.pojo.ImageLabel;
+import design.model.ImageLabel;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
