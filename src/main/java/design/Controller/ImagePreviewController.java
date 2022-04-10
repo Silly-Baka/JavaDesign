@@ -7,6 +7,7 @@ import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
 import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.OverrunStyle;
+import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
@@ -93,7 +94,7 @@ public class ImagePreviewController {
         }
     }
     /**
-     * 创建一个装载图片的标签
+     * 创建一个装载图片的标签并设置其属性
      * @param file 图片文件
      * @return 返回图片标签
      */
@@ -110,8 +111,12 @@ public class ImagePreviewController {
         imageLabel.setTextAlignment(TextAlignment.CENTER);
         imageLabel.setImageFileProperty(file);
         imageLabel.setContentDisplay(ContentDisplay.TOP);
-        imageLabel.setPrefSize(200,160);
+        imageLabel.setPrefSize(160,140);
         imageLabel.setContextMenu(menuController.getImageControlMenu(this));
+        long length = file.length();
+        double kbSize = BigDecimal.valueOf(length).divide(BigDecimal.valueOf(1024),3,RoundingMode.HALF_EVEN).doubleValue();
+        imageLabel.setTooltip(new Tooltip("图片大小："+kbSize+"kb    "+
+                                            "图片名字："+file.getName()));
 
 
         imageLabel.setOnMouseClicked(event -> {
