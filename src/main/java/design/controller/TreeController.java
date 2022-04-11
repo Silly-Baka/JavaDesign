@@ -22,7 +22,12 @@ public class TreeController {
     private TreeItem<File> rootNode;
 
     public TreeController(){
-          rootNode = createTreeNode(new File("C:\\Program Files (x86)\\图片"));
+        rootNode = new TreeItem<>(new File(""));
+        File[] files = File.listRoots();
+        for (File file : files) {
+            TreeItem<File> treeNode = createTreeNode(file);
+            rootNode.getChildren().add(treeNode);
+        }
     }
     public TreeController(MenuController menuController){
         this();
@@ -66,11 +71,20 @@ public class TreeController {
             for (File file : files) {
                 // 只有当文件是个目录时才会创建节点
                 if(file.isDirectory()){
-                    childrenNodes.add(createTreeNode(file));
+//                    childrenNodes.add(createTreeNode(file));
+                    ImageView imageView = new ImageView(image);
+                    imageView.setFitHeight(16);
+                    imageView.setFitWidth(16);
+                    TreeItem<File> treeNode = new TreeItem<>(file,imageView);
+                    childrenNodes.add(treeNode);
                 }
             }
         }
         return childrenNodes;
+    }
+    public static void selectedActon(TreeItem<File> treeNode){
+        ObservableList<TreeItem<File>> childrenNodes = createChildrenNodes(treeNode);
+        treeNode.getChildren().addAll(childrenNodes);
     }
 
     public TreeItem<File> getRootNode() {

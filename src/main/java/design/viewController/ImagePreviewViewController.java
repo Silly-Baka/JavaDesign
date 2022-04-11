@@ -57,7 +57,7 @@ public class ImagePreviewViewController {
             imageController.createImageViews(observable.getValue().getValue(),imageLabelsPane);
             tipsController.createTipsLabel(tipsLabel);
             setListener();
-
+            TreeController.selectedActon(newValue);
         });
     }
 
