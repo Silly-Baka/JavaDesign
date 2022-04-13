@@ -22,7 +22,7 @@ public class TreeController {
     private TreeItem<File> rootNode;
 
     public TreeController(){
-          rootNode = createTreeNode(new File("C:\\Program Files (x86)\\图片"));
+          rootNode = createTreeNode(new File("C:\\Users\\13622\\Pictures\\Camera Roll"));
     }
     public TreeController(MenuController menuController){
         this();
