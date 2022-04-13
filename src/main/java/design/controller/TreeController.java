@@ -18,8 +18,8 @@ import java.lang.reflect.Method;
  */
 public class TreeController {
     private static final Image image = new Image(TreeController.class.getResource("/img/directory.jpg").toString());
-
-    private static final Image diskImage = new Image(TreeController.class.getResource("/img/disk.jpg").toString());
+    private static final Image diskImage = new Image(TreeController.class.getResource("/img/disk.png").toString());
+    private static final Image computerImage = new Image(TreeController.class.getResource("/img/computer.png").toString());
 
     private MenuController menuController;
 
@@ -33,16 +33,16 @@ public class TreeController {
         setLeaf = TreeItem.class.getDeclaredMethod("setLeaf", boolean.class);
         setLeaf.setAccessible(true);
 
-        ImageView diskImageView = new ImageView(diskImage);
-        diskImageView.setFitHeight(16);
-        diskImageView.setFitWidth(16);
+        ImageView computerImageView = new ImageView(computerImage);
+        computerImageView.setFitHeight(20);
+        computerImageView.setFitWidth(20);
         rootNode = new TreeItem<>(new File("磁盘根目录"));
-        rootNode.setGraphic(diskImageView);
+        rootNode.setGraphic(computerImageView);
         File[] files = File.listRoots();
         for (File file : files) {
-            diskImageView = new ImageView(diskImage);
-            diskImageView.setFitHeight(16);
-            diskImageView.setFitWidth(16);
+            ImageView diskImageView = new ImageView(diskImage);
+            diskImageView.setFitHeight(20);
+            diskImageView.setFitWidth(20);
             TreeItem<File> treeNode = createTreeNode(file);
             treeNode.setGraphic(diskImageView);
             rootNode.getChildren().add(treeNode);
@@ -94,8 +94,8 @@ public class TreeController {
 //                }
 //                childrenNodes.add(createTreeNode(file));
                 ImageView imageView = new ImageView(image);
-                imageView.setFitHeight(16);
-                imageView.setFitWidth(16);
+                imageView.setFitHeight(20);
+                imageView.setFitWidth(20);
                 TreeItem<File> treeNode = new TreeItem<>(file,imageView);
                 File[] childFiles = file.listFiles(File::isDirectory);
                 if(childFiles!=null && childFiles.length > 0){

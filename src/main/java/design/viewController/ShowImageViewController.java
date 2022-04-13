@@ -1,11 +1,13 @@
 package design.viewController;
 
+import design.Utils.ImageShowUtils;
 import design.controller.ShowImageController;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -46,6 +48,7 @@ public class ShowImageViewController {
         imageShowStage = new Stage();
         imageShowStage.setWidth(1200);
         imageShowStage.setHeight(600);
+        imageShowStage.getIcons().add(new Image(getClass().getResource("/img/stage2.png").toString()));
         imageBox = new HBox();
         imageBox.setAlignment(Pos.CENTER);
 //        imageBox.setStyle("-fx-background-color: yellow");
@@ -61,8 +64,8 @@ public class ShowImageViewController {
         // 初始化图片切换按钮
         left_button.setImage(new Image(getClass().getResource("/img/left.jpg").toString()));
         right_button.setImage(new Image(getClass().getResource("/img/right.jpg").toString()));
-        AnchorPane.setTopAnchor(left_button,imageShowStage.getHeight()/2-left_button.prefHeight(-1)/2);
-        AnchorPane.setTopAnchor(right_button,imageShowStage.getHeight()/2-right_button.prefHeight(-1)/2);
+        AnchorPane.setTopAnchor(left_button,imageShowStage.getHeight()/2-left_button.prefHeight(-1));
+        AnchorPane.setTopAnchor(right_button,imageShowStage.getHeight()/2-right_button.prefHeight(-1));
 
         AnchorPane.setLeftAnchor(right_button,imageShowStage.getWidth()-right_button.prefWidth(-1));
         AnchorPane.setLeftAnchor(imagePane,left_button.prefWidth(-1));
@@ -86,15 +89,17 @@ public class ShowImageViewController {
                 AnchorPane.setLeftAnchor(right_button,newValue.doubleValue()-right_button.prefWidth(-1));
                 AnchorPane.setLeftAnchor(imagePane,left_button.prefWidth(-1));
                 refreshImageBox();
+//                ImageShowUtils.setImageSize(left_button,left_button.prefWidth(-1),left_button.prefHeight(-1), newValue.doubleValue(), imageShowStage.getHeight());
             }
         });
         imageShowStage.heightProperty().addListener(new ChangeListener<Number>() {
             @Override
             public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
-                imagePane.setPrefHeight(newValue.doubleValue()-100);
-                AnchorPane.setTopAnchor(left_button,newValue.doubleValue()/2-left_button.prefHeight(-1)/2);
-                AnchorPane.setTopAnchor(right_button,newValue.doubleValue()/2-right_button.prefHeight(-1)/2);
+                imagePane.setPrefHeight(newValue.doubleValue()-70);
+                AnchorPane.setTopAnchor(left_button,newValue.doubleValue()/2-left_button.prefHeight(-1));
+                AnchorPane.setTopAnchor(right_button,newValue.doubleValue()/2-right_button.prefHeight(-1));
                 refreshImageBox();
+//                ImageShowUtils.setImageSize(left_button,left_button.prefWidth(-1),left_button.prefHeight(-1),imageShowStage.getWidth(), newValue.doubleValue());
             }
         });
 

@@ -197,15 +197,20 @@ public class ShowImageController {
      */
     public void slideshowAction(GridPane imagePane){
         Pane pane = new Pane();
-        tt.setDuration(Duration.seconds(1.5));
+        tt.setDuration(Duration.seconds(1));
         tt.setNode(pane);
         tt.setFromX(0);
         tt.setToX(imagePane.getWidth()+10);
         tt.setInterpolator(Interpolator.LINEAR);
 
 //        tempImageBox.setStyle("-fx-background-color: pink");
-
-        nextImageView = refreshImageAndPlay(imagePane);
+        // 如果未到达最后一张 则获取下一张图片 否则暂停
+        if(fileIndex < presentFileList.size()-1){
+            nextImageView = refreshImageAndPlay(imagePane);
+        }else{
+            // 幻灯片结束
+            AlertUtils.AnimationShowAlert(Alert.AlertType.CONFIRMATION,"幻灯片播放已完成！","",imageShowStage);
+        }
         pane.translateXProperty().addListener(new ChangeListener<Number>() {
             @Override
             public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
@@ -223,7 +228,7 @@ public class ShowImageController {
             // 如果幻灯片未到最后一张 则暂停一秒后继续播放
             if(fileIndex < presentFileList.size()-1){
                 try {
-                    Thread.currentThread().sleep(1000);
+                    Thread.sleep(2000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
