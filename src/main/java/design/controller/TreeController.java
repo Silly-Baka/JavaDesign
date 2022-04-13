@@ -7,6 +7,8 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 import java.io.File;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 
 /**
  * User: 86176
@@ -17,19 +19,36 @@ import java.io.File;
 public class TreeController {
     private static final Image image = new Image(TreeController.class.getResource("/img/directory.jpg").toString());
 
+    private static final Image diskImage = new Image(TreeController.class.getResource("/img/disk.jpg").toString());
+
     private MenuController menuController;
 
     private TreeItem<File> rootNode;
 
-    public TreeController(){
-        rootNode = new TreeItem<>(new File(""));
+    private static Method setLeaf;
+
+    public TreeController() throws InvocationTargetException, NoSuchMethodException, IllegalAccessException {
+
+        //利用反射来访问setLeaf方法  用来调TreeItem的默认样式
+        setLeaf = TreeItem.class.getDeclaredMethod("setLeaf", boolean.class);
+        setLeaf.setAccessible(true);
+
+        ImageView diskImageView = new ImageView(diskImage);
+        diskImageView.setFitHeight(16);
+        diskImageView.setFitWidth(16);
+        rootNode = new TreeItem<>(new File("磁盘根目录"));
+        rootNode.setGraphic(diskImageView);
         File[] files = File.listRoots();
         for (File file : files) {
+            diskImageView = new ImageView(diskImage);
+            diskImageView.setFitHeight(16);
+            diskImageView.setFitWidth(16);
             TreeItem<File> treeNode = createTreeNode(file);
+            treeNode.setGraphic(diskImageView);
             rootNode.getChildren().add(treeNode);
         }
     }
-    public TreeController(MenuController menuController){
+    public TreeController(MenuController menuController) throws InvocationTargetException, NoSuchMethodException, IllegalAccessException {
         this();
         this.menuController = menuController;
     }
@@ -38,7 +57,7 @@ public class TreeController {
      * @param file 传入的文件
      * @return 返回一个节点
      */
-    public static TreeItem<File> createTreeNode(File file){
+    public static TreeItem<File> createTreeNode(File file) throws InvocationTargetException, NoSuchMethodException, IllegalAccessException {
         ImageView imageView = new ImageView(image);
         imageView.setFitHeight(16);
         imageView.setFitWidth(16);
@@ -55,7 +74,7 @@ public class TreeController {
      * @param parentNode 当前节点
      * @return 返回子节点的数组
      */
-    public static ObservableList<TreeItem<File>> createChildrenNodes(TreeItem<File> parentNode){
+    public static ObservableList<TreeItem<File>> createChildrenNodes(TreeItem<File> parentNode) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
         File parentFile = parentNode.getValue();
         // 如果文件不存在 或 文件不为目录 都返回空的子节点数组
         if(!parentFile.exists()){
@@ -66,23 +85,33 @@ public class TreeController {
         }
         // 如果该节点是个目录文件
         ObservableList<TreeItem<File>> childrenNodes = FXCollections.observableArrayList();
-        File[] files = parentFile.listFiles();
+        // 获取目录文件
+        File[] files = parentFile.listFiles(File::isDirectory);
         if(files != null){
             for (File file : files) {
                 // 只有当文件是个目录时才会创建节点
-                if(file.isDirectory()){
-//                    childrenNodes.add(createTreeNode(file));
-                    ImageView imageView = new ImageView(image);
-                    imageView.setFitHeight(16);
-                    imageView.setFitWidth(16);
-                    TreeItem<File> treeNode = new TreeItem<>(file,imageView);
-                    childrenNodes.add(treeNode);
+//                if(file.isDirectory()){
+//                }
+//                childrenNodes.add(createTreeNode(file));
+                ImageView imageView = new ImageView(image);
+                imageView.setFitHeight(16);
+                imageView.setFitWidth(16);
+                TreeItem<File> treeNode = new TreeItem<>(file,imageView);
+                File[] childFiles = file.listFiles(File::isDirectory);
+                if(childFiles!=null && childFiles.length > 0){
+                    setLeaf.invoke(treeNode, false);
                 }
+                childrenNodes.add(treeNode);
             }
         }
         return childrenNodes;
     }
-    public static void selectedActon(TreeItem<File> treeNode){
+
+    /**
+     * 当节点被点击时执行该方法  创建被点击节点的子节点 并设置
+     * @param treeNode 被点击的结点
+     */
+    public static void createAndSetChildrenNodes(TreeItem<File> treeNode) throws InvocationTargetException, NoSuchMethodException, IllegalAccessException {
         ObservableList<TreeItem<File>> childrenNodes = createChildrenNodes(treeNode);
         treeNode.getChildren().addAll(childrenNodes);
     }

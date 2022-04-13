@@ -12,6 +12,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.io.File;
+import java.lang.reflect.InvocationTargetException;
 
 /**
  * User: 86176
@@ -39,7 +40,7 @@ public class ImagePreviewViewController {
     private Stage primaryStage;
 
 
-    public ImagePreviewViewController(){
+    public ImagePreviewViewController() throws InvocationTargetException, NoSuchMethodException, IllegalAccessException {
         tipsController = new TipsController();
         menuController = new MenuController(this,tipsController);
         treeController = new TreeController(menuController);
@@ -57,7 +58,11 @@ public class ImagePreviewViewController {
             imageController.createImageViews(observable.getValue().getValue(),imageLabelsPane);
             tipsController.createTipsLabel(tipsLabel);
             setListener();
-            TreeController.selectedActon(newValue);
+            try {
+                TreeController.createAndSetChildrenNodes(newValue);
+            } catch (InvocationTargetException | NoSuchMethodException | IllegalAccessException e) {
+                e.printStackTrace();
+            }
         });
     }
 
