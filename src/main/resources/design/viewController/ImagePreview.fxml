@@ -6,13 +6,13 @@
 <AnchorPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="design.viewController.ImagePreviewViewController"
-            prefHeight="400.0" prefWidth="1000.0"
+            prefHeight="650.0" prefWidth="1000.0"
             fx:id="rootPane">
-    <TreeView fx:id="treeView">
+    <TreeView fx:id="treeView" style="-fx-border-color: #a4b0f8">
         <prefWidth>300</prefWidth>
-        <prefHeight>600</prefHeight>
+        <prefHeight>700</prefHeight>
     </TreeView>
-    <ScrollPane AnchorPane.leftAnchor="300" prefHeight="600">
+    <ScrollPane AnchorPane.leftAnchor="300" prefHeight="660" fx:id="imageLabelsScrollPane">
         <FlowPane fx:id="imageLabelsPane" hgap="10" vgap="10">
             <AnchorPane.leftAnchor>330</AnchorPane.leftAnchor>
             <prefWidth>880</prefWidth>
@@ -23,6 +23,11 @@
     <Label fx:id="tipsLabel">
         <prefHeight>30</prefHeight>
         <prefWidth>1200</prefWidth>
-        <AnchorPane.topAnchor>600</AnchorPane.topAnchor>
+        <AnchorPane.topAnchor>700</AnchorPane.topAnchor>
     </Label>
+    <GridPane AnchorPane.leftAnchor="300" AnchorPane.topAnchor="660" prefWidth="900" prefHeight="40" alignment="CENTER"
+            fx:id="actionPane">
+        <Button text="幻灯片播放" fx:id="slideShowButton" prefHeight="60">
+        </Button>
+    </GridPane>
 </AnchorPane>

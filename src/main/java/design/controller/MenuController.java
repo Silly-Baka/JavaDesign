@@ -33,6 +33,8 @@ public class MenuController {
 
     private KeyCodeCombination deleteKey;
 
+    private KeyCodeCombination renameKey;
+
     private CopyController copyController;
 
     private PasteController pasteController;
@@ -47,6 +49,7 @@ public class MenuController {
         copyKey = new KeyCodeCombination(KeyCode.C, KeyCombination.CONTROL_DOWN);
         pasteKey = new KeyCodeCombination(KeyCode.V, KeyCombination.CONTROL_DOWN);
         deleteKey = new KeyCodeCombination(KeyCode.DELETE);
+        renameKey = new KeyCodeCombination(KeyCode.R,KeyCombination.CONTROL_DOWN);
     }
     public MenuController (ImagePreviewViewController imagePreviewViewController,TipsController tipsController) {
         this();
@@ -73,6 +76,7 @@ public class MenuController {
             menuItem1.setAccelerator(copyKey);
             menuItem2.setAccelerator(pasteKey);
             menuItem3.setAccelerator(deleteKey);
+            menuItem4.setAccelerator(renameKey);
 
             menuItem1.setOnAction(e->{
                 copyController.copyAction();

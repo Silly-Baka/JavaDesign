@@ -129,4 +129,9 @@ public class ImageShowUtils {
         imageView.setFitHeight(finalHeight);
         imageView.setFitWidth(finalWidth);
     }
+//    public static void setOtherImageSize(ImageView imageView,double imgWidth,double imgHeight,double containWidth,double containHeight){
+//        imageView.setFitHeight(containWidth/containHeight*);
+//        imageView.setFitWidth(finalWidth);
+//    }
+
 }

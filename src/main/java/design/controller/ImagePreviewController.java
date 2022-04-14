@@ -1,18 +1,18 @@
 package design.controller;
 
+import design.Utils.AlertUtils;
 import design.Utils.StringUtils;
 import design.model.ImageLabel;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
-import javafx.scene.control.ContentDisplay;
-import javafx.scene.control.OverrunStyle;
-import javafx.scene.control.Tooltip;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.text.TextAlignment;
+import javafx.stage.Stage;
 
 import java.io.File;
 import java.math.BigDecimal;
@@ -44,6 +44,10 @@ public class ImagePreviewController {
     private BigDecimal imageTotalSize;
 
     private ArrayList<File> presentFileList;
+
+    private Button slideShowButton;
+
+    private Stage primaryStage;
 
 
     public ImagePreviewController(){
@@ -133,11 +137,6 @@ public class ImagePreviewController {
                 showImageController.createStage(presentFileList,imageLabel.getImageFileProperty());
             }
         });
-//        imageLabel.setOnMouseExited(event -> {
-//            imageLabel.setScaleX(1);
-//            imageLabel.setScaleY(1);
-//        });
-
         imageLabel.addPictureNodeListener();
         return imageLabel;
     }
@@ -188,5 +187,20 @@ public class ImagePreviewController {
             imageLabels.add(createImageLabel(newImageFile));
         }
         imageLabelsPane.getChildren().addAll(imageLabels);
+    }
+
+    public void setSlideShowButton(Button slideShowButton) {
+        this.slideShowButton = slideShowButton;
+        slideShowButton.setOnAction(event -> {
+            if(presentFileList!=null && presentFileList.size()>0){
+                showImageController.createStage(presentFileList,presentFileList.get(0));
+            }else {
+                AlertUtils.showAlert(Alert.AlertType.WARNING,"幻灯片播放失败！请在有图片的目录重新点击","",primaryStage);
+            }
+        });
+    }
+
+    public void setPrimaryStage(Stage primaryStage) {
+        this.primaryStage = primaryStage;
     }
 }

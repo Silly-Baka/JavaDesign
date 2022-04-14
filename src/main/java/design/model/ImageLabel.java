@@ -7,6 +7,7 @@ import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleObjectProperty;
+import javafx.scene.Cursor;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
@@ -115,6 +116,9 @@ public class ImageLabel extends Label {
 
         });
         this.addEventHandler(MouseEvent.MOUSE_CLICKED, new MouseEventHandler(this));
+        this.setOnMouseMoved(event -> {
+            this.setCursor(Cursor.HAND);
+        });
     }
 
     public static ArrayList<ImageLabel> getSelectedPictures() {return selectedPictures;}
