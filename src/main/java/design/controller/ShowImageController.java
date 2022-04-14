@@ -71,9 +71,7 @@ public class ShowImageController {
     }
     public void getController() {
         try {
-//            URL url = getClass().getResource("ShowImageView.fxml");
             URL url = getClass().getResource("/design/viewController/ShowImageView.fxml");
-//            URL url2 = getClass().getClassLoader().getResource("design/ViewController/ShowImageView.fxml");
             FXMLLoader fxmlLoader = new FXMLLoader();
             fxmlLoader.setLocation(url);
             root = fxmlLoader.load();
@@ -114,7 +112,6 @@ public class ShowImageController {
      */
     public ImageView getImageView(){
         Image image = imageList.get(fileIndex);
-
         double imgWidth = image.getWidth();
         double imgHeight = image.getHeight();
 

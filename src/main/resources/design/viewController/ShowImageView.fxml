@@ -25,44 +25,36 @@
         <ScrollPane fx:id="imageScrollPane">
         </ScrollPane>
     </GridPane>
-    <FlowPane alignment="CENTER" layoutX="100" layoutY="450" prefHeight="100.0" prefWidth="1000.0" style="-fx-background-color:pink">
-        <children>
-            <HBox spacing="10">
-                <children>
-<!--                    <Button fx:id="b1" textFill="#c96a6a" prefWidth="60" prefHeight="30"></Button>-->
-<!--                    <Button fx:id="b2" textFill="#c96a6a" prefWidth="60" prefHeight="30"></Button>-->
-                    <ImageView fx:id="b1" preserveRatio="true">
-                        <fitHeight>30</fitHeight>
-                        <fitWidth>60</fitWidth>
-                    </ImageView>
-                    <ImageView fx:id="b2" preserveRatio="true">
-                        <fitHeight>30</fitHeight>
-                        <fitWidth>60</fitWidth>
-                    </ImageView>
-                    <ImageView fx:id="b3" preserveRatio="true">
-                        <fitHeight>30</fitHeight>
-                        <fitWidth>60</fitWidth>
-                    </ImageView>
-                    <ImageView fx:id="b4" preserveRatio="true">
-                        <fitHeight>30</fitHeight>
-                        <fitWidth>60</fitWidth>
-                    </ImageView>
-                    <ImageView fx:id="slideShowButton" preserveRatio="true">
-                        <fitHeight>30</fitHeight>
-                        <fitWidth>60</fitWidth>
-                    </ImageView>
-                    <ImageView fx:id="slideShowStopButton" preserveRatio="true">
-                        <fitHeight>30</fitHeight>
-                        <fitWidth>60</fitWidth>
-                    </ImageView>
-<!--                    <Button fx:id="b3" textFill="#c96a6a" prefWidth="60" prefHeight="30"></Button>-->
-<!--                    <Button fx:id="b4" textFill="#c96a6a" prefWidth="60" prefHeight="30"></Button>-->
-<!--                    <Button fx:id="b5" text="删除" textFill="#c96a6a" prefWidth="60" prefHeight="30"></Button>-->
-<!--                    <Button fx:id="slideShowButton" text="幻灯片播放" textFill="#c96a6a" prefWidth="100" prefHeight="30"></Button>-->
-<!--                    <Button fx:id="slideShowStopButton" text="幻灯片暂停" textFill="#c96a6a" prefWidth="100" prefHeight="30"></Button>-->
-                </children>
-            </HBox>
-        </children>
+    <FlowPane fx:id="actionPane" alignment="CENTER" hgap="20" AnchorPane.leftAnchor="100" AnchorPane.topAnchor="450" prefHeight="75.0" prefWidth="1000.0"
+              style="-fx-background-color:pink">
+        <ImageView fx:id="enlargeButton" preserveRatio="true">
+            <fitHeight>50</fitHeight>
+            <fitWidth>50</fitWidth>
+        </ImageView>
+        <ImageView fx:id="reduceButton" preserveRatio="true">
+            <fitHeight>50</fitHeight>
+            <fitWidth>50</fitWidth>
+        </ImageView>
+        <ImageView fx:id="recoverButton">
+            <fitHeight>50</fitHeight>
+            <fitWidth>50</fitWidth>
+        </ImageView>
+        <ImageView fx:id="nextButton" preserveRatio="true">
+            <fitHeight>50</fitHeight>
+            <fitWidth>50</fitWidth>
+        </ImageView>
+        <ImageView fx:id="beforeButton" preserveRatio="true">
+            <fitHeight>50</fitHeight>
+            <fitWidth>50</fitWidth>
+        </ImageView>
+        <ImageView fx:id="slideShowButton" preserveRatio="true">
+            <fitHeight>50</fitHeight>
+            <fitWidth>50</fitWidth>
+        </ImageView>
+        <ImageView fx:id="slideShowStopButton" preserveRatio="true">
+            <fitHeight>50</fitHeight>
+            <fitWidth>50</fitWidth>
+        </ImageView>
     </FlowPane>
 
 </AnchorPane>
