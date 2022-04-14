@@ -27,14 +27,13 @@ public class TipsController {
     public TipsController(){
 
     }
-    public TipsController(ImagePreviewController imageController){
-        this.imageController = imageController;
-    }
 
     public void createTipsLabel(Label tipsLabel){
         this.tipsLabel = tipsLabel;
         this.imageCount = imageController.getImageCount();
-        this.imageTotalSize = imageController.getImageTotalSize().doubleValue();
+        if(imageController.getImageTotalSize()!=null){
+            this.imageTotalSize = imageController.getImageTotalSize().doubleValue();
+        }
         ///
 
         String text = "    "+imageCount+"张图片("+imageTotalSize+"MB)---选中"+selectedCount+"张照片";

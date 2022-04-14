@@ -5,6 +5,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 
@@ -32,9 +33,14 @@ public class Main extends Application {
         ImagePreviewViewController ImagePreviewViewController = fxmlLoader.getController();
         ImagePreviewViewController.setPrimaryStage(primaryStage);
         Scene scene = new Scene(root);
+
         primaryStage.setScene(scene);
-        primaryStage.setHeight(800);
+        primaryStage.setHeight(770);
         primaryStage.setWidth(1200);
+        primaryStage.getIcons().add(new Image(getClass().getResource("/img/stage1.png").toString()));
+        primaryStage.setTitle("狂拽炫酷叼究极图片管理程序");
         primaryStage.show();
+
+
     }
 }
