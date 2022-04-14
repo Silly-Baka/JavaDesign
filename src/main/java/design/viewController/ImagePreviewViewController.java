@@ -84,7 +84,7 @@ public class ImagePreviewViewController {
             @Override
             public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
                  imageLabelsPane.setPrefWidth((Double)newValue-treeView.prefWidth(-1));
-                 imageLabelsScrollPane.setPrefWidth(newValue.doubleValue()-treeView.prefWidth(-1));
+                 imageLabelsScrollPane.setPrefWidth(newValue.doubleValue()-treeView.prefWidth(-1)-15);
                  tipsLabel.setPrefWidth((Double)newValue);
                  actionPane.setPrefWidth(newValue.doubleValue()-treeView.prefWidth(-1));
             }
