@@ -1,12 +1,12 @@
 package design.viewController;
 
-import design.Utils.ImageShowUtils;
 import design.controller.ShowImageController;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
+import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -27,15 +27,24 @@ public class ShowImageViewController {
     @FXML
     private GridPane imagePane;
     @FXML
+    private ImageView slideShowButton;
     private ScrollPane imageScrollPane;
     @FXML
     private Button slideShowButton;
     @FXML
-    private Button slideShowStopButton;
+    private ImageView slideShowStopButton;
 
     private StackPane stackPane;
 
     @FXML
+    private ImageView b1;
+    @FXML
+    private ImageView b2;
+    @FXML
+    private ImageView b3;
+    @FXML
+    private ImageView b4;
+
     private Button enlargeButton;
     @FXML
     private Button reduceButton;
@@ -60,7 +69,6 @@ public class ShowImageViewController {
         imageShowStage = new Stage();
         imageShowStage.setWidth(1200);
         imageShowStage.setHeight(600);
-        imageShowStage.getIcons().add(new Image(getClass().getResource("/img/stage2.png").toString()));
         imageBox = new HBox();
         imageBox.setAlignment(Pos.CENTER);
 //        imageBox.setStyle("-fx-background-color: yellow");
@@ -86,19 +94,29 @@ public class ShowImageViewController {
         imageScrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         imageScrollPane.setPannable(true);
 
-        Image image1=new Image(getClass().getResource("/img/+.jpg").toString());
-        ImageView imageView1=new ImageView();
-        imageView1.setImage(image1);
-        imageView1.setFitHeight(20);
-        imageView1.setFitWidth(20);
-        enlargeButton.setGraphic(imageView1);
+        b1.setImage(new Image(getClass().getResource("/img/enlarge.jpg").toString()));
+        b2.setImage(new Image(getClass().getResource("/img/reduce.jpg").toString()));
+        b3.setImage(new Image(getClass().getResource("/img/left.jpg").toString()));
+        b4.setImage(new Image(getClass().getResource("/img/right.jpg").toString()));
+        slideShowButton.setImage(new Image(getClass().getResource("/img/play.jpg").toString()));
+        slideShowStopButton.setImage(new Image(getClass().getResource("/img/pause.jpg").toString()));
 
-        Image image2=new Image(getClass().getResource("/img/-.jpg").toString());
-        ImageView imageView2=new ImageView();
-        imageView2.setImage(image2);
-        imageView2.setFitHeight(20);
-        imageView2.setFitWidth(20);
-        reduceButton.setGraphic(imageView2);
+//        Image image1=new Image(getClass().getResource("/img/last.jpg").toString());
+//        ImageView imageView1=new ImageView();
+//        imageView1.setImage(image1);
+//        imageView1.setFitHeight(30);
+//        imageView1.setFitWidth(30);
+//        b3.setGraphic(imageView1);
+//        b3.setContentDisplay(ContentDisplay.RIGHT);
+//
+//        Image image2=new Image(getClass().getResource("/img/next.jpg").toString());
+//        ImageView imageView2=new ImageView();
+//        imageView2.setImage(image2);
+//        imageView2.setFitHeight(30);
+//        imageView2.setFitWidth(30);
+//        b4.setGraphic(imageView2);
+//        b4.setContentDisplay(ContentDisplay.RIGHT);
+
 
         enlargeButton.setOnAction(event -> {
             ImageView imageView = (ImageView) imageBox.getChildren().get(0);
@@ -163,11 +181,11 @@ public class ShowImageViewController {
         });
 
         // 设置幻灯片播放按钮的点击事件
-        slideShowButton.setOnAction(event -> {
+        slideShowButton.setOnMouseClicked(event -> {
             slideshowAction(imagePane);
         });
         // 设置幻灯片暂停按钮的暂停事件
-        slideShowStopButton.setOnAction(event -> {
+        slideShowStopButton.setOnMouseClicked(event -> {
             slideshowStopAction();
         });
 
