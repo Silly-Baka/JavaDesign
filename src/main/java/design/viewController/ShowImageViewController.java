@@ -7,12 +7,10 @@ import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.ContentDisplay;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.StackPane;
+import javafx.scene.layout.*;
 import javafx.stage.Stage;
 
 /**
@@ -30,6 +28,9 @@ public class ShowImageViewController {
     private GridPane imagePane;
     @FXML
     private ImageView slideShowButton;
+    private ScrollPane imageScrollPane;
+    @FXML
+    private Button slideShowButton;
     @FXML
     private ImageView slideShowStopButton;
 
@@ -44,6 +45,17 @@ public class ShowImageViewController {
     @FXML
     private ImageView b4;
 
+    private Button enlargeButton;
+    @FXML
+    private Button reduceButton;
+    @FXML
+    private Button beforeButton;
+    @FXML
+    private Button nextButton;
+    @FXML
+    private Button recoverButton;
+    @FXML
+    private FlowPane actionPane;
 //    @FXML
     private HBox imageBox;
 
@@ -70,15 +82,17 @@ public class ShowImageViewController {
     }
     public void initialize(){
         // 初始化图片切换按钮
-        left_button.setImage(new Image(getClass().getResource("/img/doubleleft.jpg").toString()));
-        right_button.setImage(new Image(getClass().getResource("/img/doubleright.jpg").toString()));
-        AnchorPane.setTopAnchor(left_button,imageShowStage.getHeight()/2-left_button.prefHeight(-1)/2);
-        AnchorPane.setTopAnchor(right_button,imageShowStage.getHeight()/2-right_button.prefHeight(-1)/2);
-
+        left_button.setImage(new Image(getClass().getResource("/img/left.jpg").toString()));
+        right_button.setImage(new Image(getClass().getResource("/img/right.jpg").toString()));
+        AnchorPane.setTopAnchor(left_button,imageShowStage.getHeight()/2-left_button.prefHeight(-1));
+        AnchorPane.setTopAnchor(right_button,imageShowStage.getHeight()/2-right_button.prefHeight(-1));
         AnchorPane.setLeftAnchor(right_button,imageShowStage.getWidth()-right_button.prefWidth(-1));
-        AnchorPane.setLeftAnchor(imagePane,left_button.prefWidth(-1));
 
-        imagePane.getChildren().add(stackPane);
+//        imagePane.getChildren().add(stackPane);
+        imageScrollPane.setContent(stackPane);
+        imageScrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+        imageScrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+        imageScrollPane.setPannable(true);
 
         b1.setImage(new Image(getClass().getResource("/img/enlarge.jpg").toString()));
         b2.setImage(new Image(getClass().getResource("/img/reduce.jpg").toString()));
@@ -104,14 +118,14 @@ public class ShowImageViewController {
 //        b4.setContentDisplay(ContentDisplay.RIGHT);
 
 
-        b1.setOnMouseClicked(event -> {
-            ImageView imageView=new ImageView();
-            showImageController.enlarge(imagePane,imageView);
+        enlargeButton.setOnAction(event -> {
+            ImageView imageView = (ImageView) imageBox.getChildren().get(0);
+            showImageController.enlarge(imageView);
 
         } );
-        b2.setOnMouseClicked(event -> {
-            ImageView imageView=new ImageView();
-            showImageController.reduce(imagePane,imageView);
+        reduceButton.setOnAction(event -> {
+            ImageView imageView = (ImageView) imageBox.getChildren().get(0);
+            showImageController.reduce(imageView);
         });
 
 
@@ -126,33 +140,43 @@ public class ShowImageViewController {
             refreshImageBox();
         });
 
-        b4.setOnMouseClicked(event ->{
+        nextButton.setOnAction(event ->{
             showImageController.setFileIndex(showImageController.getFileIndex()+1);
             showImageController.setImageShowStageTitle();
             refreshImageBox();
         });
-        b3.setOnMouseClicked(event ->{
+        beforeButton.setOnAction(event ->{
             showImageController.setFileIndex(showImageController.getFileIndex()-1);
             showImageController.setImageShowStageTitle();
             refreshImageBox();
         });
+        recoverButton.setOnAction(event -> {
+            ImageView imageView = (ImageView) imageBox.getChildren().get(0);
+            ImageShowUtils.setImageSize(imageView,imageView.getFitWidth(),imageView.getFitHeight(),imagePane.getWidth(),imagePane.getHeight());
+        });
+
 
         imageShowStage.widthProperty().addListener(new ChangeListener<Number>() {
             @Override
             public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
                 imagePane.setPrefWidth(newValue.doubleValue()-left_button.prefWidth(-1)*2);
+                actionPane.setPrefWidth(newValue.doubleValue()-left_button.prefWidth(-1)*2);
                 AnchorPane.setLeftAnchor(right_button,newValue.doubleValue()-right_button.prefWidth(-1));
                 AnchorPane.setLeftAnchor(imagePane,left_button.prefWidth(-1));
+                AnchorPane.setLeftAnchor(actionPane,left_button.prefWidth(-1));
                 refreshImageBox();
             }
         });
         imageShowStage.heightProperty().addListener(new ChangeListener<Number>() {
             @Override
             public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
-                imagePane.setPrefHeight(newValue.doubleValue()-100);
-                AnchorPane.setTopAnchor(left_button,newValue.doubleValue()/2-left_button.prefHeight(-1)/2);
-                AnchorPane.setTopAnchor(right_button,newValue.doubleValue()/2-right_button.prefHeight(-1)/2);
+                imagePane.setPrefHeight(newValue.doubleValue()-150);
+                actionPane.setPrefHeight((imagePane.getPrefHeight()-1)/6);
+                AnchorPane.setTopAnchor(left_button,newValue.doubleValue()/2-left_button.prefHeight(-1));
+                AnchorPane.setTopAnchor(right_button,newValue.doubleValue()/2-right_button.prefHeight(-1));
+                AnchorPane.setTopAnchor(actionPane,imagePane.prefHeight(-1));
                 refreshImageBox();
+
             }
         });
 
@@ -163,6 +187,14 @@ public class ShowImageViewController {
         // 设置幻灯片暂停按钮的暂停事件
         slideShowStopButton.setOnMouseClicked(event -> {
             slideshowStopAction();
+        });
+
+        imageScrollPane.setOnMouseDragged(event -> {
+            System.out.println("滑动窗口的横距离："+imageScrollPane.getVvalue());
+            System.out.println("鼠标的x轴位置"+event.getX());
+        });
+        imageScrollPane.setOnMouseClicked(event -> {
+            System.out.println("点击到了");
         });
     }
 

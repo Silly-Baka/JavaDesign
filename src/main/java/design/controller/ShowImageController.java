@@ -278,24 +278,19 @@ public class ShowImageController {
 
     /**
      * 缩放操作
-     * @param imagePane 当前图片布局
      * @param imageView 传入的图片组件
      */
     //放大
-    public void enlarge(GridPane imagePane,ImageView imageView ){
+    public void enlarge(ImageView imageView){
         double factor=1.2;
         imageView.setFitWidth(imageView.getFitWidth()*factor);
         imageView.setFitHeight(imageView.getFitHeight()*factor);
-        imagePane.setPrefWidth(imagePane.getPrefWidth()*factor);
-        imagePane.setPrefHeight(imagePane.getPrefHeight()*factor);
 
     }
     //缩小
-    public void reduce(GridPane imagePane,ImageView imageView ){
+    public void reduce(ImageView imageView ){
         double factor=1/1.2;
         imageView.setFitWidth(imageView.getFitWidth()*factor);
         imageView.setFitHeight(imageView.getFitHeight()*factor);
-        imagePane.setPrefWidth(imagePane.getPrefWidth()*factor);
-        imagePane.setPrefHeight(imagePane.getPrefHeight()*factor);
     }
 }
