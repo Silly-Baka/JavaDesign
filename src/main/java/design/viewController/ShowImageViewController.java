@@ -7,6 +7,7 @@ import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
+import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -35,6 +36,16 @@ public class ShowImageViewController {
     private Button slideShowStopButton;
 
     private StackPane stackPane;
+
+    @FXML
+    private Button b1;
+    @FXML
+    private Button b2;
+    @FXML
+    private Button b3;
+    @FXML
+    private Button b4;
+
 //    @FXML
     private HBox imageBox;
 
@@ -72,6 +83,33 @@ public class ShowImageViewController {
 
         imagePane.getChildren().add(stackPane);
 
+        Image image1=new Image(getClass().getResource("/img/+.jpg").toString());
+        ImageView imageView1=new ImageView();
+        imageView1.setImage(image1);
+        imageView1.setFitHeight(20);
+        imageView1.setFitWidth(20);
+        b1.setGraphic(imageView1);
+        b1.setContentDisplay(ContentDisplay.RIGHT);
+
+        Image image2=new Image(getClass().getResource("/img/-.jpg").toString());
+        ImageView imageView2=new ImageView();
+        imageView2.setImage(image2);
+        imageView2.setFitHeight(20);
+        imageView2.setFitWidth(20);
+        b2.setGraphic(imageView2);
+        b2.setContentDisplay(ContentDisplay.RIGHT);
+
+        b1.setOnMouseClicked(event -> {
+            ImageView imageView=new ImageView();
+            showImageController.enlarge(imagePane,imageView);
+
+        } );
+        b2.setOnMouseClicked(event -> {
+            ImageView imageView=new ImageView();
+            showImageController.reduce(imagePane,imageView);
+        });
+
+
         right_button.setOnMouseClicked(event -> {
             showImageController.setFileIndex(showImageController.getFileIndex()+1);
             showImageController.setImageShowStageTitle();
@@ -82,6 +120,18 @@ public class ShowImageViewController {
             showImageController.setImageShowStageTitle();
             refreshImageBox();
         });
+
+        b4.setOnMouseClicked(event ->{
+            showImageController.setFileIndex(showImageController.getFileIndex()+1);
+            showImageController.setImageShowStageTitle();
+            refreshImageBox();
+        });
+        b3.setOnMouseClicked(event ->{
+            showImageController.setFileIndex(showImageController.getFileIndex()-1);
+            showImageController.setImageShowStageTitle();
+            refreshImageBox();
+        });
+
         imageShowStage.widthProperty().addListener(new ChangeListener<Number>() {
             @Override
             public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {

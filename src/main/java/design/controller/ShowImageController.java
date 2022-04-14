@@ -275,4 +275,27 @@ public class ShowImageController {
         tt.play();
         return nextImageView;
     }
+
+    /**
+     * 缩放操作
+     * @param imagePane 当前图片布局
+     * @param imageView 传入的图片组件
+     */
+    //放大
+    public void enlarge(GridPane imagePane,ImageView imageView ){
+        double factor=1.2;
+        imageView.setFitWidth(imageView.getFitWidth()*factor);
+        imageView.setFitHeight(imageView.getFitHeight()*factor);
+        imagePane.setPrefWidth(imagePane.getPrefWidth()*factor);
+        imagePane.setPrefHeight(imagePane.getPrefHeight()*factor);
+
+    }
+    //缩小
+    public void reduce(GridPane imagePane,ImageView imageView ){
+        double factor=1/1.2;
+        imageView.setFitWidth(imageView.getFitWidth()*factor);
+        imageView.setFitHeight(imageView.getFitHeight()*factor);
+        imagePane.setPrefWidth(imagePane.getPrefWidth()*factor);
+        imagePane.setPrefHeight(imagePane.getPrefHeight()*factor);
+    }
 }
