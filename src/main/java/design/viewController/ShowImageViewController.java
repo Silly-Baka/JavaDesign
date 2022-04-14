@@ -29,20 +29,20 @@ public class ShowImageViewController {
     @FXML
     private GridPane imagePane;
     @FXML
-    private Button slideShowButton;
+    private ImageView slideShowButton;
     @FXML
-    private Button slideShowStopButton;
+    private ImageView slideShowStopButton;
 
     private StackPane stackPane;
 
     @FXML
-    private Button b1;
+    private ImageView b1;
     @FXML
-    private Button b2;
+    private ImageView b2;
     @FXML
-    private Button b3;
+    private ImageView b3;
     @FXML
-    private Button b4;
+    private ImageView b4;
 
 //    @FXML
     private HBox imageBox;
@@ -70,8 +70,8 @@ public class ShowImageViewController {
     }
     public void initialize(){
         // 初始化图片切换按钮
-        left_button.setImage(new Image(getClass().getResource("/img/left.jpg").toString()));
-        right_button.setImage(new Image(getClass().getResource("/img/right.jpg").toString()));
+        left_button.setImage(new Image(getClass().getResource("/img/doubleleft.jpg").toString()));
+        right_button.setImage(new Image(getClass().getResource("/img/doubleright.jpg").toString()));
         AnchorPane.setTopAnchor(left_button,imageShowStage.getHeight()/2-left_button.prefHeight(-1)/2);
         AnchorPane.setTopAnchor(right_button,imageShowStage.getHeight()/2-right_button.prefHeight(-1)/2);
 
@@ -80,21 +80,29 @@ public class ShowImageViewController {
 
         imagePane.getChildren().add(stackPane);
 
-        Image image1=new Image(getClass().getResource("/img/+.jpg").toString());
-        ImageView imageView1=new ImageView();
-        imageView1.setImage(image1);
-        imageView1.setFitHeight(20);
-        imageView1.setFitWidth(20);
-        b1.setGraphic(imageView1);
-        b1.setContentDisplay(ContentDisplay.RIGHT);
+        b1.setImage(new Image(getClass().getResource("/img/enlarge.jpg").toString()));
+        b2.setImage(new Image(getClass().getResource("/img/reduce.jpg").toString()));
+        b3.setImage(new Image(getClass().getResource("/img/left.jpg").toString()));
+        b4.setImage(new Image(getClass().getResource("/img/right.jpg").toString()));
+        slideShowButton.setImage(new Image(getClass().getResource("/img/play.jpg").toString()));
+        slideShowStopButton.setImage(new Image(getClass().getResource("/img/pause.jpg").toString()));
 
-        Image image2=new Image(getClass().getResource("/img/-.jpg").toString());
-        ImageView imageView2=new ImageView();
-        imageView2.setImage(image2);
-        imageView2.setFitHeight(20);
-        imageView2.setFitWidth(20);
-        b2.setGraphic(imageView2);
-        b2.setContentDisplay(ContentDisplay.RIGHT);
+//        Image image1=new Image(getClass().getResource("/img/last.jpg").toString());
+//        ImageView imageView1=new ImageView();
+//        imageView1.setImage(image1);
+//        imageView1.setFitHeight(30);
+//        imageView1.setFitWidth(30);
+//        b3.setGraphic(imageView1);
+//        b3.setContentDisplay(ContentDisplay.RIGHT);
+//
+//        Image image2=new Image(getClass().getResource("/img/next.jpg").toString());
+//        ImageView imageView2=new ImageView();
+//        imageView2.setImage(image2);
+//        imageView2.setFitHeight(30);
+//        imageView2.setFitWidth(30);
+//        b4.setGraphic(imageView2);
+//        b4.setContentDisplay(ContentDisplay.RIGHT);
+
 
         b1.setOnMouseClicked(event -> {
             ImageView imageView=new ImageView();
@@ -149,11 +157,11 @@ public class ShowImageViewController {
         });
 
         // 设置幻灯片播放按钮的点击事件
-        slideShowButton.setOnAction(event -> {
+        slideShowButton.setOnMouseClicked(event -> {
             slideshowAction(imagePane);
         });
         // 设置幻灯片暂停按钮的暂停事件
-        slideShowStopButton.setOnAction(event -> {
+        slideShowStopButton.setOnMouseClicked(event -> {
             slideshowStopAction();
         });
     }

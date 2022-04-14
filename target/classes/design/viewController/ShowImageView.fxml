@@ -29,13 +29,37 @@
         <children>
             <HBox spacing="10">
                 <children>
-                    <Button fx:id="b1" textFill="#c96a6a" prefWidth="60" prefHeight="30"></Button>
-                    <Button fx:id="b2" textFill="#c96a6a" prefWidth="60" prefHeight="30"></Button>
-                    <Button fx:id="b3" text="上一页" textFill="#c96a6a" prefWidth="60" prefHeight="30"></Button>
-                    <Button fx:id="b4" text="下一页" textFill="#c96a6a" prefWidth="60" prefHeight="30"></Button>
-                    <Button fx:id="b5" text="删除" textFill="#c96a6a" prefWidth="60" prefHeight="30"></Button>
-                    <Button fx:id="slideShowButton" text="幻灯片播放" textFill="#c96a6a" prefWidth="100" prefHeight="30"></Button>
-                    <Button fx:id="slideShowStopButton" text="幻灯片暂停" textFill="#c96a6a" prefWidth="100" prefHeight="30"></Button>
+<!--                    <Button fx:id="b1" textFill="#c96a6a" prefWidth="60" prefHeight="30"></Button>-->
+<!--                    <Button fx:id="b2" textFill="#c96a6a" prefWidth="60" prefHeight="30"></Button>-->
+                    <ImageView fx:id="b1" preserveRatio="true">
+                        <fitHeight>30</fitHeight>
+                        <fitWidth>60</fitWidth>
+                    </ImageView>
+                    <ImageView fx:id="b2" preserveRatio="true">
+                        <fitHeight>30</fitHeight>
+                        <fitWidth>60</fitWidth>
+                    </ImageView>
+                    <ImageView fx:id="b3" preserveRatio="true">
+                        <fitHeight>30</fitHeight>
+                        <fitWidth>60</fitWidth>
+                    </ImageView>
+                    <ImageView fx:id="b4" preserveRatio="true">
+                        <fitHeight>30</fitHeight>
+                        <fitWidth>60</fitWidth>
+                    </ImageView>
+                    <ImageView fx:id="slideShowButton" preserveRatio="true">
+                        <fitHeight>30</fitHeight>
+                        <fitWidth>60</fitWidth>
+                    </ImageView>
+                    <ImageView fx:id="slideShowStopButton" preserveRatio="true">
+                        <fitHeight>30</fitHeight>
+                        <fitWidth>60</fitWidth>
+                    </ImageView>
+<!--                    <Button fx:id="b3" textFill="#c96a6a" prefWidth="60" prefHeight="30"></Button>-->
+<!--                    <Button fx:id="b4" textFill="#c96a6a" prefWidth="60" prefHeight="30"></Button>-->
+<!--                    <Button fx:id="b5" text="删除" textFill="#c96a6a" prefWidth="60" prefHeight="30"></Button>-->
+<!--                    <Button fx:id="slideShowButton" text="幻灯片播放" textFill="#c96a6a" prefWidth="100" prefHeight="30"></Button>-->
+<!--                    <Button fx:id="slideShowStopButton" text="幻灯片暂停" textFill="#c96a6a" prefWidth="100" prefHeight="30"></Button>-->
                 </children>
             </HBox>
         </children>
