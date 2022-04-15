@@ -16,51 +16,28 @@ import javafx.scene.text.Text;
  * Description: 负责菜单组件的创建以及获取
  */
 public class MenuController {
+    public static ContextMenu imageControlMenu;
 
-    private ImagePreviewViewController imagePreviewViewController;
+    public static ContextMenu treeControlMenu;
 
-    private Node node;
+    public static final KeyCodeCombination copyKey = new KeyCodeCombination(KeyCode.C, KeyCombination.CONTROL_DOWN);
 
-    private ImagePreviewController imagePreviewController;
+    public static final KeyCodeCombination pasteKey = new KeyCodeCombination(KeyCode.V, KeyCombination.CONTROL_DOWN);
 
-    private ContextMenu imageControlMenu;
+    public static final KeyCodeCombination deleteKey = new KeyCodeCombination(KeyCode.DELETE);
 
-    private ContextMenu treeControlMenu;
+    public static final KeyCodeCombination renameKey = new KeyCodeCombination(KeyCode.R,KeyCombination.CONTROL_DOWN);
 
-    private KeyCodeCombination copyKey;
-
-    private KeyCodeCombination pasteKey;
-
-    private KeyCodeCombination deleteKey;
-
-    private KeyCodeCombination renameKey;
-
-    private CopyController copyController;
-
-    private PasteController pasteController;
-
-    private DeleteController deleteController;
-
-    private RenameController renameController;
-
-    private TipsController tipsController;
+    public static final ActionController actionController = new ActionController();
 
     public MenuController(){
-        copyKey = new KeyCodeCombination(KeyCode.C, KeyCombination.CONTROL_DOWN);
-        pasteKey = new KeyCodeCombination(KeyCode.V, KeyCombination.CONTROL_DOWN);
-        deleteKey = new KeyCodeCombination(KeyCode.DELETE);
-        renameKey = new KeyCodeCombination(KeyCode.R,KeyCombination.CONTROL_DOWN);
-    }
-    public MenuController (ImagePreviewViewController imagePreviewViewController,TipsController tipsController) {
-        this();
-        this.imagePreviewViewController = imagePreviewViewController;
-        this.tipsController = tipsController;
+
     }
 
     /**
      * @return 获取图片的右键菜单
      */
-    public ContextMenu getImageControlMenu(ImagePreviewController imagePreviewController){
+    public static ContextMenu getImageControlMenu(ImagePreviewController imagePreviewController,ImagePreviewViewController imagePreviewViewController){
         if(imageControlMenu == null){
             MenuItem menuItem1 = new MenuItem("复制");
             MenuItem menuItem2 = new MenuItem("粘贴");
@@ -68,30 +45,25 @@ public class MenuController {
             MenuItem menuItem4 = new MenuItem("重命名");
             imageControlMenu = new ContextMenu(menuItem1,menuItem2,menuItem3,menuItem4);
 
-            copyController = new CopyController();
-            pasteController = new PasteController(imagePreviewController);
-            deleteController = new DeleteController(imagePreviewViewController);
-            renameController = new RenameController(imagePreviewController);
-
             menuItem1.setAccelerator(copyKey);
             menuItem2.setAccelerator(pasteKey);
             menuItem3.setAccelerator(deleteKey);
             menuItem4.setAccelerator(renameKey);
 
             menuItem1.setOnAction(e->{
-                copyController.copyAction();
+                actionController.copyAction();
             });
 
             menuItem2.setOnAction(e->{
-                pasteController.pasteAction();
+                actionController.pasteAction(imagePreviewController);
             });
 
             menuItem3.setOnAction(e->{
-                deleteController.deleteAction();
+                actionController.deleteAction(imagePreviewViewController);
             });
 
             menuItem4.setOnAction(e->{
-                renameController.renameAction();
+                actionController.renameAction(imagePreviewController);
             });
 
             // ContextMenu自带的 不用写这个
@@ -104,23 +76,10 @@ public class MenuController {
 //                }
 //            });
 
-            //点击空白处清空已选
-            node.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent e) -> {
-                Node clickNode = e.getPickResult().getIntersectedNode();
-                if (clickNode instanceof FlowPane && !(clickNode instanceof ImageLabel) && !(clickNode instanceof Text)) {// 鼠标点击非图片节点
-                    ImageLabel.clearSelected();// 清空已选
-                    tipsController.setSelectedCount(ImageLabel.getSelectedPictures().size());
-                }
-            });
-
         }
         return imageControlMenu;
     }
     public ContextMenu getTreeControlMenu(){
         return null;
-    }
-
-    public void setNode(Node node) {
-        this.node = node;
     }
 }

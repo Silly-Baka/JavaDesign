@@ -3,6 +3,7 @@ package design.controller;
 import design.Utils.AlertUtils;
 import design.Utils.StringUtils;
 import design.model.ImageLabel;
+import design.viewController.ImagePreviewViewController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
@@ -29,13 +30,9 @@ import java.util.List;
 public class ImagePreviewController {
     private FlowPane imageLabelsPane;
 
-    private TipsController tipsController;
-
     private ObservableList<ImageLabel> imageLabels;
 
     private String oldPath;
-
-    private MenuController menuController;
 
     private ShowImageController showImageController;
 
@@ -45,20 +42,18 @@ public class ImagePreviewController {
 
     private ArrayList<File> presentFileList;
 
-    private Button slideShowButton;
-
     private Stage primaryStage;
+
+    private ImagePreviewViewController imagePreviewViewController;
 
 
     public ImagePreviewController(){
         oldPath = "";
         imageLabels = FXCollections.observableArrayList();
     }
-    public ImagePreviewController(MenuController menuController, ShowImageController showImageController, TipsController tipsController){
+    public ImagePreviewController(ShowImageController showImageController){
         this();
-        this.menuController = menuController;
         this.showImageController = showImageController;
-        this.tipsController = tipsController;
     }
     /**
      * 读取选中目录下的所有图片文件 并存放在数组中  同时获取图片数量和总大小
@@ -106,7 +101,7 @@ public class ImagePreviewController {
         Image image = new Image("file:" + file.getPath(),120,80,true,true);
         ImageView imageView = new ImageView(image);
 
-        ImageLabel imageLabel = new ImageLabel(tipsController);
+        ImageLabel imageLabel = new ImageLabel();
         imageLabel.setAlignment(Pos.CENTER);
         imageLabel.setText(file.getName());
         imageLabel.setWrapText(true);
@@ -116,7 +111,7 @@ public class ImagePreviewController {
         imageLabel.setImageFileProperty(file);
         imageLabel.setContentDisplay(ContentDisplay.TOP);
         imageLabel.setPrefSize(160,140);
-        imageLabel.setContextMenu(menuController.getImageControlMenu(this));
+        imageLabel.setContextMenu(MenuController.getImageControlMenu(this,imagePreviewViewController));
         long length = file.length();
         double kbSize = BigDecimal.valueOf(length).divide(BigDecimal.valueOf(1024),3,RoundingMode.HALF_EVEN).doubleValue();
         imageLabel.setTooltip(new Tooltip("图片大小："+kbSize+"kb    "+
@@ -190,7 +185,6 @@ public class ImagePreviewController {
     }
 
     public void setSlideShowButton(Button slideShowButton) {
-        this.slideShowButton = slideShowButton;
         slideShowButton.setOnAction(event -> {
             if(presentFileList!=null && presentFileList.size()>0){
                 showImageController.createStage(presentFileList,presentFileList.get(0));
@@ -202,5 +196,9 @@ public class ImagePreviewController {
 
     public void setPrimaryStage(Stage primaryStage) {
         this.primaryStage = primaryStage;
+    }
+
+    public void setViewController(ImagePreviewViewController imagePreviewViewController){
+        this.imagePreviewViewController = imagePreviewViewController;
     }
 }

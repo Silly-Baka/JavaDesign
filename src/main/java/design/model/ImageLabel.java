@@ -28,19 +28,11 @@ public class ImageLabel extends Label {
     //  是否被选中 默认没被选中
     private boolean isSelected;
 
-    private ImageLabel imageLabel = this;
-
     public BooleanProperty selected = new SimpleBooleanProperty();
 
     protected static ArrayList<ImageLabel> selectedPictures = new ArrayList<>();
     protected static ArrayList<ImageLabel> cutedPictures = new ArrayList<>();
     protected static ArrayList<File> selectedPictureFiles = new  ArrayList<>();
-    //
-    private TipsController tipsController;
-
-    public ImageLabel(TipsController tipsController) {
-        this.tipsController = tipsController;
-    }
 
     public ImageLabel(){
 
@@ -72,19 +64,15 @@ public class ImageLabel extends Label {
         return isSelected;
     }
 
-//    public void setSelected(boolean selected) {
-//        isSelected = selected;
-//    }
-
     public void setSelected(boolean value) {
-        boolean istrue = selected.get();
+        boolean isSelected = selected.get();
         selected.set(value);
-        if (selected.get() && !istrue)
+        if (selected.get() && !isSelected)
             selectedPictures.add(this);
-        else if (istrue && !selected.get())
+        else if (isSelected && !selected.get())
             selectedPictures.remove(this);
         System.out.println(selectedPictures.size());
-        tipsController.setSelectedCount(selectedPictures.size());
+        TipsController.setSelectedCount(selectedPictures.size());
     }
 
     public static void clearSelected() {
@@ -99,9 +87,9 @@ public class ImageLabel extends Label {
             @Override
             public void invalidated(Observable observable) {
                 if(selected.get()) {
-                    imageLabel.setStyle("-fx-background-color:#a7a7a7;");
+                    setStyle("-fx-background-color:#a7a7a7;");
                 }else {
-                    imageLabel.setStyle("-fx-background-color:transparent;");
+                    setStyle("-fx-background-color:transparent;");
                 }
             }
         });

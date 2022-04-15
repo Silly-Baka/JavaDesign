@@ -32,6 +32,8 @@ public class Main extends Application {
         Parent root = fxmlLoader.load();
         ImagePreviewViewController ImagePreviewViewController = fxmlLoader.getController();
         ImagePreviewViewController.setPrimaryStage(primaryStage);
+        ImagePreviewViewController.getImageController().setViewController(ImagePreviewViewController);
+
         Scene scene = new Scene(root);
 
         primaryStage.setScene(scene);

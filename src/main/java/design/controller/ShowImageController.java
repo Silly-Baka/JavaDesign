@@ -43,22 +43,22 @@ public class ShowImageController {
 
     private ShowImageViewController showImageViewController;
 
-    private HBox imageBox;
+    private final HBox imageBox;
 
-    private HBox tempImageBox;
+    private final HBox tempImageBox;
 
     private static ImageView oldImageView;
 
     private static ImageView nextImageView;
 
-    private TranslateTransition tt;
+    private final TranslateTransition tt;
 
-    private DisplacementMap disp1;
+    private final DisplacementMap disp1;
 
-    private DisplacementMap disp2;
+    private final DisplacementMap disp2;
 
     public ShowImageController(){
-        getController();
+        getViewController();
         imageBox = showImageViewController.getImageBox();
         imageShowStage = showImageViewController.getImageShowStage();
         showImageViewController.setImageShowController(this);
@@ -69,7 +69,7 @@ public class ShowImageController {
         disp2 = new DisplacementMap();
         tempImageBox.setEffect(disp2);
     }
-    public void getController() {
+    public void getViewController() {
         try {
             URL url = getClass().getResource("/design/viewController/ShowImageView.fxml");
             FXMLLoader fxmlLoader = new FXMLLoader();

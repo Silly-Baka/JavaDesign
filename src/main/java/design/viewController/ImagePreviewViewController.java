@@ -1,6 +1,7 @@
 package design.viewController;
 
 import design.controller.*;
+import design.model.ImageLabel;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
@@ -9,10 +10,12 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TreeView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.io.File;
@@ -25,10 +28,8 @@ import java.lang.reflect.InvocationTargetException;
  * Description: 图片预览界面的视图控制了
  */
 public class ImagePreviewViewController {
-    private TreeController treeController;
-    private ImagePreviewController imageController;
-    private TipsController tipsController;
-    private MenuController menuController;
+    private final TreeController treeController;
+    private final ImagePreviewController imageController;
     private ShowImageController showImageController;
     @FXML
     private AnchorPane rootPane;
@@ -49,12 +50,9 @@ public class ImagePreviewViewController {
 
 
     public ImagePreviewViewController() throws InvocationTargetException, NoSuchMethodException, IllegalAccessException {
-        tipsController = new TipsController();
-        menuController = new MenuController(this,tipsController);
-        treeController = new TreeController(menuController);
+        treeController = new TreeController();
         showImageController = new ShowImageController();
-        imageController = new ImagePreviewController(menuController, showImageController, tipsController);
-        tipsController.setImageController(imageController);
+        imageController = new ImagePreviewController(showImageController);
     }
     public void initialize(){
 
@@ -63,14 +61,20 @@ public class ImagePreviewViewController {
 
         imageController.setSlideShowButton(slideShowButton);
         treeView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-            menuController.setNode(imageLabelsPane);
             imageController.createImageViews(observable.getValue().getValue(),imageLabelsPane);
-            tipsController.createTipsLabel(tipsLabel);
+            TipsController.createTipsLabel(tipsLabel,imageController);
             setListener();
             try {
                 TreeController.createAndSetChildrenNodes(newValue);
             } catch (InvocationTargetException | NoSuchMethodException | IllegalAccessException e) {
                 e.printStackTrace();
+            }
+        });
+        imageLabelsPane.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent e) -> {
+            Node clickNode = e.getPickResult().getIntersectedNode();
+            if (clickNode instanceof FlowPane && !(clickNode instanceof ImageLabel) && !(clickNode instanceof Text)) {// 鼠标点击非图片节点
+                ImageLabel.clearSelected();// 清空已选
+                TipsController.setSelectedCount(ImageLabel.getSelectedPictures().size());
             }
         });
     }
@@ -104,5 +108,9 @@ public class ImagePreviewViewController {
 
     public FlowPane getImageLabelsPane() {
         return imageLabelsPane;
+    }
+
+    public ImagePreviewController getImageController() {
+        return imageController;
     }
 }

@@ -10,29 +10,23 @@ import javafx.scene.control.Label;
  */
 public class TipsController {
 
-    private ImagePreviewController imageController;
+    private static Label tipsLabel;
 
-    private Label tipsLabel;
+    private static int selectedCount = 0;
 
-    public void setImageController(ImagePreviewController imageController) {
-        this.imageController = imageController;
-    }
+    private static int imageCount;
 
-    private int selectedCount = 0;
-
-    private int imageCount;
-
-    private double imageTotalSize;
+    private static double imageTotalSize;
 
     public TipsController(){
 
     }
 
-    public void createTipsLabel(Label tipsLabel){
-        this.tipsLabel = tipsLabel;
-        this.imageCount = imageController.getImageCount();
+    public static void createTipsLabel(Label tipsLabel,ImagePreviewController imageController){
+        TipsController.tipsLabel = tipsLabel;
+        TipsController.imageCount = imageController.getImageCount();
         if(imageController.getImageTotalSize()!=null){
-            this.imageTotalSize = imageController.getImageTotalSize().doubleValue();
+            TipsController.imageTotalSize = imageController.getImageTotalSize().doubleValue();
         }
         ///
 
@@ -41,9 +35,9 @@ public class TipsController {
         tipsLabel.setStyle("-fx-background-color: pink");
     }
 
-    public void setSelectedCount(int selectedCount) {
-        this.selectedCount = selectedCount;
-        String text = "    "+imageCount+"张图片("+imageTotalSize+"MB)---选中"+this.selectedCount+"张照片";
-        tipsLabel.setText(text);
+    public static void setSelectedCount(int selectedCount) {
+        TipsController.selectedCount = selectedCount;
+        String text = "    "+imageCount+"张图片("+imageTotalSize+"MB)---选中"+selectedCount+"张照片";
+        TipsController.tipsLabel.setText(text);
     }
 }

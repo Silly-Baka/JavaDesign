@@ -21,8 +21,6 @@ public class TreeController {
     private static final Image diskImage = new Image(TreeController.class.getResource("/img/disk.png").toString());
     private static final Image computerImage = new Image(TreeController.class.getResource("/img/computer.png").toString());
 
-    private MenuController menuController;
-
     private TreeItem<File> rootNode;
 
     private static Method setLeaf;
@@ -47,10 +45,6 @@ public class TreeController {
             treeNode.setGraphic(diskImageView);
             rootNode.getChildren().add(treeNode);
         }
-    }
-    public TreeController(MenuController menuController) throws InvocationTargetException, NoSuchMethodException, IllegalAccessException {
-        this();
-        this.menuController = menuController;
     }
     /**
      * 创建目录树的结点
