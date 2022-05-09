@@ -200,7 +200,7 @@ public class ShowImageController {
         tt.setToX(imagePane.getWidth()+10);
         tt.setInterpolator(Interpolator.LINEAR);
 
-//        tempImageBox.setStyle("-fx-background-color: pink");
+    //        tempImageBox.setStyle("-fx-background-color: pink");
         // 如果未到达最后一张 则获取下一张图片 否则暂停
         if(fileIndex < presentFileList.size()-1){
             nextImageView = refreshImageAndPlay(imagePane);

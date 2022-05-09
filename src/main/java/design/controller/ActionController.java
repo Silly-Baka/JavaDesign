@@ -24,7 +24,7 @@ import java.util.Optional;
  * User: 86176
  * Date: 2022/4/15
  * Time: 8:52
- * Description:
+ * Description: 负责复制、粘贴、重命名、删除等功能的业务逻辑，同时维护重命名功能中单选和多选两种模式所需的自定义消息窗口组件
  */
 public class ActionController {
     private final TextInputDialog renameSingDialog;
@@ -106,22 +106,11 @@ public class ActionController {
 
             }
 
-            //该段代码应该把刚刚粘贴的图片加载到图片数组中，这样界面才能刷新显示出新加的图片
-//            FileInputStream fis = new FileInputStream(newFile);
-//            Image image = new Image(fis,100,100,true,true);
-//            ImageView imageView = new ImageView(image);
-//            ImageLabel I1 = new ImageLabel(newFile.getName(),imageView);
-//            I1.setImageFileProperty(newFile);
-//            mainUI.getPictures().add(I1);
-
             imagePreviewController.refreshImageViews(newFile);
-
 
             if(ImageLabel.getCutedPictures().size()>0) {
                 oldFile.delete();
             }
-
-//            imagePreviewViewController.showPicture();
         }
         clipboard.clear();
     }
@@ -135,7 +124,6 @@ public class ActionController {
         }
         inputStream.close();
         outputStream.close();
-
     }
     private String Pasterename(String theFilePath, String name) {
         String newName = name;
@@ -221,7 +209,7 @@ public class ActionController {
             renameMulDialog.refreshText();
             Optional<RenameProperty> renameProperty = renameMulDialog.showAndWait();
             renameProperty.ifPresent(property -> {
-//            ArrayList<File> selectedPictureFiles = ImageLabel.getSelectedPictureFiles();
+    //            ArrayList<File> selectedPictureFiles = ImageLabel.getSelectedPictureFiles();
                 ArrayList<File> selectedPictureFiles = new ArrayList<>();
                 ArrayList<File> newImageFiles = new ArrayList<>();
                 for (ImageLabel selectedPicture : selectedPictures) {

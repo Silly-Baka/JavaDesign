@@ -61,7 +61,7 @@ public class ShowImageViewController {
         imageShowStage.setWidth(1200);
         imageShowStage.setHeight(600);
         imageBox = new HBox();
-        imageBox.setAlignment(Pos.CENTER);
+//        imageBox.setAlignment(Pos.CENTER);
 //        imageBox.setStyle("-fx-background-color: yellow");
 
         tempImageBox = new HBox();

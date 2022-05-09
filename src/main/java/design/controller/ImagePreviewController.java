@@ -76,7 +76,7 @@ public class ImagePreviewController {
         if(files != null){
             presentFileList = new ArrayList<>();
             for (File file : files) {
-                if(StringUtils.isImageFile(file)){
+                if(StringUtils.isImageFile(file.getName())){
                     imageLabels.add(createImageLabel(file));
                     imageCount++;
                     size+=file.length();
