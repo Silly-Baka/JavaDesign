@@ -60,6 +60,7 @@ public class ImagePreviewViewController {
 //        imageLabelsPane.setPrefWidth(primaryStage.getWidth()-AnchorPane.getLeftAnchor(imageLabelsPane));
 
         imageController.setSlideShowButton(slideShowButton);
+        // 当树节点被点击时执行
         treeView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             imageController.createImageViews(observable.getValue().getValue(),imageLabelsPane);
             TipsController.createTipsLabel(tipsLabel,imageController);

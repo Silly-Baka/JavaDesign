@@ -196,11 +196,11 @@ public class ShowImageController {
         Pane pane = new Pane();
         tt.setDuration(Duration.seconds(1));
         tt.setNode(pane);
-        tt.setFromX(0);
-        tt.setToX(imagePane.getWidth()+10);
+        tt.setFromX(imagePane.getPrefWidth());
+        tt.setToX(-10);
         tt.setInterpolator(Interpolator.LINEAR);
 
-//        tempImageBox.setStyle("-fx-background-color: pink");
+    //        tempImageBox.setStyle("-fx-background-color: pink");
         // 如果未到达最后一张 则获取下一张图片 否则暂停
         if(fileIndex < presentFileList.size()-1){
             nextImageView = refreshImageAndPlay(imagePane);
@@ -211,8 +211,8 @@ public class ShowImageController {
         pane.translateXProperty().addListener(new ChangeListener<Number>() {
             @Override
             public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
-                disp1.setOffsetX(-newValue.doubleValue()/imagePane.getWidth());
-                disp2.setOffsetX(1-newValue.doubleValue()/imagePane.getWidth());
+                disp2.setOffsetX(-newValue.doubleValue()/imagePane.getWidth());
+                disp1.setOffsetX(1-newValue.doubleValue()/imagePane.getWidth());
             }
         });
         tt.setOnFinished(event -> {

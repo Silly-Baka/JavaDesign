@@ -61,7 +61,7 @@ public class ShowImageViewController {
         imageShowStage.setWidth(1200);
         imageShowStage.setHeight(600);
         imageBox = new HBox();
-        imageBox.setAlignment(Pos.CENTER);
+//        imageBox.setAlignment(Pos.CENTER);
 //        imageBox.setStyle("-fx-background-color: yellow");
 
         tempImageBox = new HBox();
@@ -87,8 +87,8 @@ public class ShowImageViewController {
 
         enlargeButton.setImage(new Image(getClass().getResource("/img/enlarge.jpg").toString()));
         reduceButton.setImage(new Image(getClass().getResource("/img/reduce.jpg").toString()));
-        nextButton.setImage(new Image(getClass().getResource("/img/left.jpg").toString()));
-        beforeButton.setImage(new Image(getClass().getResource("/img/right.jpg").toString()));
+        nextButton.setImage(new Image(getClass().getResource("/img/right.jpg").toString()));
+        beforeButton.setImage(new Image(getClass().getResource("/img/left.jpg").toString()));
         slideShowButton.setImage(new Image(getClass().getResource("/img/play.jpg").toString()));
         slideShowStopButton.setImage(new Image(getClass().getResource("/img/pause.jpg").toString()));
         recoverButton.setImage(new Image(getClass().getResource("/img/recover.png").toString()));

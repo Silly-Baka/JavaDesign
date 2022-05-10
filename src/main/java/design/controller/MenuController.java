@@ -65,17 +65,6 @@ public class MenuController {
             menuItem4.setOnAction(e->{
                 actionController.renameAction(imagePreviewController);
             });
-
-            // ContextMenu自带的 不用写这个
-//            node.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent e) -> {
-//                if (e.getButton() == MouseButton.SECONDARY)
-//                    imageControlMenu.show(node, e.getScreenX(), e.getScreenY());
-//                else {
-//                    if (imageControlMenu.isShowing())
-//                        imageControlMenu.hide();
-//                }
-//            });
-
         }
         return imageControlMenu;
     }

@@ -12,13 +12,13 @@ import java.util.Locale;
 public class StringUtils {
     /**
      * 判断传入的文件是否是图片文件
-     * @param file 需要判断的文件
+     * @param fileName 需要判断的文件名字
      * @return 返回是否是图片文件
      */
-    public static boolean isImageFile(File file){
-        String fileName = file.getName().toLowerCase(Locale.ROOT);
-        if(fileName.endsWith(".jpg")||fileName.endsWith("jpeg")||fileName.endsWith(".gif")
-                ||fileName.endsWith("png")||fileName.endsWith(".bmp")){
+    public static boolean isImageFile(String fileName){
+        String lowerName = fileName.toLowerCase(Locale.ROOT);
+        if(lowerName.endsWith(".jpg")||lowerName.endsWith("jpeg")||lowerName.endsWith(".gif")
+                ||lowerName.endsWith("png")||lowerName.endsWith(".bmp")){
             return true;
         }
         return false;
