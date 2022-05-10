@@ -26,7 +26,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        URL url = getClass().getResource("ViewController/ImagePreview.fxml");
+        URL url = getClass().getResource("viewController/ImagePreview.fxml");
         FXMLLoader fxmlLoader = new FXMLLoader();
         fxmlLoader.setLocation(url);
         Parent root = fxmlLoader.load();
