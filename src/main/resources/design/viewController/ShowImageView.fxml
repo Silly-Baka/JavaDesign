@@ -39,11 +39,11 @@
             <fitHeight>50</fitHeight>
             <fitWidth>50</fitWidth>
         </ImageView>
-        <ImageView fx:id="nextButton" preserveRatio="true">
+        <ImageView fx:id="beforeButton" preserveRatio="true">
             <fitHeight>50</fitHeight>
             <fitWidth>50</fitWidth>
         </ImageView>
-        <ImageView fx:id="beforeButton" preserveRatio="true">
+        <ImageView fx:id="nextButton" preserveRatio="true">
             <fitHeight>50</fitHeight>
             <fitWidth>50</fitWidth>
         </ImageView>
