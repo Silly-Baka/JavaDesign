@@ -71,7 +71,7 @@ public class ImageLabel extends Label {
             selectedPictures.add(this);
         else if (isSelected && !selected.get())
             selectedPictures.remove(this);
-        System.out.println(selectedPictures.size());
+//        System.out.println(selectedPictures.size());
         TipsController.setSelectedCount(selectedPictures.size());
     }
 

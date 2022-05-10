@@ -47,15 +47,11 @@ public class ActionController {
         if(ImageLabel.getSelectedPictures().size()<=0) {
             return;
         }
-        if(ImageLabel.getCutedPictures().size() > 0) {
-            for(ImageLabel pNode : ImageLabel.getCutedPictures()) {
-                pNode.getImageView().setEffect(null);
-            }
-            ImageLabel.getCutedPictures().clear();
-        }
+
         Clipboard clipboard = Clipboard.getSystemClipboard();
         ClipboardContent clipboardContent = new ClipboardContent();
         clipboard.clear();
+        ImageLabel.getSelectedPictureFiles().clear();
         for(ImageLabel pNode : ImageLabel.getSelectedPictures()) {
             ImageLabel.getSelectedPictureFiles().add(pNode.getImageFile());
         }
@@ -74,19 +70,7 @@ public class ActionController {
         if (files.size() <= 0) {
             return;
         }
-        if (ImageLabel.getCutedPictures().size() > 0) {
-            File first = files.get(0);
-            if(first.getParentFile().getAbsolutePath().compareTo(imagePreviewController.getOldPath()) == 0){
-                for(ImageLabel pNode : ImageLabel.getCutedPictures()) {
-                    pNode.getImageView().setEffect(null);
-                }
-                ImageLabel.clearSelected();
-                ImageLabel.getCutedPictures().clear();
-                ImageLabel.getSelectedPictureFiles().clear();
-                clipboard.clear();
-                return;
-            }
-        }
+
         for(File oldFile : files) {
             String newName = Pasterename(imagePreviewController.getOldPath(),oldFile.getName());
             File newFile = new File(imagePreviewController.getOldPath()+File.separator+newName);
@@ -108,9 +92,7 @@ public class ActionController {
 
             imagePreviewController.refreshImageViews(newFile);
 
-            if(ImageLabel.getCutedPictures().size()>0) {
-                oldFile.delete();
-            }
+
         }
         clipboard.clear();
     }
@@ -209,7 +191,7 @@ public class ActionController {
             renameMulDialog.refreshText();
             Optional<RenameProperty> renameProperty = renameMulDialog.showAndWait();
             renameProperty.ifPresent(property -> {
-    //            ArrayList<File> selectedPictureFiles = ImageLabel.getSelectedPictureFiles();
+                //            ArrayList<File> selectedPictureFiles = ImageLabel.getSelectedPictureFiles();
                 ArrayList<File> selectedPictureFiles = new ArrayList<>();
                 ArrayList<File> newImageFiles = new ArrayList<>();
                 for (ImageLabel selectedPicture : selectedPictures) {

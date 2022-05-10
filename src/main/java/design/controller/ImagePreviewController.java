@@ -126,7 +126,7 @@ public class ImagePreviewController {
 //
 //            }
             if(event.getButton().equals(MouseButton.SECONDARY)){
-                System.out.println("右键");
+//                System.out.println("右键");
             }
             if(event.getClickCount()==2){
                 showImageController.createStage(presentFileList,imageLabel.getImageFileProperty());
@@ -173,9 +173,9 @@ public class ImagePreviewController {
      * @param newImageFiles 重命名后的图片文件数组
      */
     public void refreshImageViews(ArrayList<ImageLabel> oldeImageLabels, List<File> newImageFiles) {
-        System.out.println(imageLabels.size());
+//        System.out.println(imageLabels.size());
         imageLabels.removeAll(oldeImageLabels);
-        System.out.println(imageLabels.size());
+//        System.out.println(imageLabels.size());
         imageLabelsPane.getChildren().remove(0, imageLabelsPane.getChildren().size());
 
         for (File newImageFile : newImageFiles) {
